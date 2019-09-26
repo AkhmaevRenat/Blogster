@@ -1,0 +1,32 @@
+head
+  title Articles
+
+  body
+    .container
+      nav
+        li
+          = link_to 'Main page', articles_path
+        li
+          a href="users/my_page" My page
+        li
+          a href="users/sign_in" Sign in
+        li
+          a href="users/sign_up" Sign up
+      h1 Listing articles
+      table
+        tr
+          th Title
+          th Text
+          th colspan="2"
+              
+          - @articles.each do |article|
+            tr
+              td = article.title
+              td = article.text
+              td = link_to 'Show', article_path(article)
+              td = link_to 'Edit', edit_article_path(article)
+              td = link_to 'Delete', article_path(article),
+                method: :delete,
+                data: { confirm: 'Are you sure?' }
+
+      = link_to 'New article', new_article_path

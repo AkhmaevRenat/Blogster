@@ -1,0 +1,15 @@
+.container
+    nav
+      li
+        = link_to 'Main page', articles_path
+      li
+        a href="users/my_page" My page
+      li
+        a href="users/sign_in" Sign in
+      li
+        a href="users/sign_up" Sign up
+    h1 Editing article
+
+    = render 'form'
+
+    = link_to 'Back', articles_path

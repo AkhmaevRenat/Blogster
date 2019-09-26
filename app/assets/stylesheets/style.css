@@ -1,0 +1,37 @@
+.container {
+  width: 75%;
+  margin: 0 auto;
+  background-color: rgba(109, 189, 209, 0.315);
+  height: 100%;
+}
+
+nav {
+  padding: 15px;
+  display: flex;
+  color: black;
+  justify-content: flex-end;
+  background-color: gainsboro;
+}
+
+nav li {
+  text-transform: uppercase;
+  list-style: none;
+  margin-left: 20px;
+}
+
+nav li a {
+  text-decoration: none;
+  color: black;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: rgba(109, 189, 209, 0.315);
+}
+
+nav li a:hover {
+  color: rgba(109, 189, 209);
+  background-color: black;
+}
+
+h1 {
+  text-align: center;
+}
