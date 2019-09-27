@@ -38,8 +38,8 @@ class ArticlesController < ApplicationController
     redirect_to articles_path
   end
 
-  def login
-    render 'login'
+  def mypage
+    @user = current_user
   end
 
   private 

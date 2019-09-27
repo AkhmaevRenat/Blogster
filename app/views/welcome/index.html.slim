@@ -3,14 +3,7 @@ head
 link rel="stylesheet" type="text/css" href="./assets/stylesheets/style.css"
 body
   .container
-    nav
-      li
-        = link_to 'Main page', articles_path
-      li
-        a href="users/my_page" My page
-      li
-        a href="users/sign_in" Sign in
-      li
-        a href="users/sign_up" Sign up
-    h1 Welcome to Blogster
+    = render './articles/nav'
+    h1 Welcome to Blogster 
+        = current_user.name
     p Please sign in or sign up to use web-site

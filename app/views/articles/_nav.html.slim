@@ -1,0 +1,16 @@
+nav
+      li
+        = link_to 'Main page', articles_path
+      li
+        a href="/articles/user_list" Users
+      li
+        = link_to 'My page', articles_user_page_path
+      - if user_signed_in?
+        li
+          = link_to 'Sign out', destroy_user_session_path 
+          a href = '/articles/user_page' hi
+      - else
+        li
+          = link_to 'Sign in', new_user_session_path
+        li
+          a href="users/sign_up" Sign up

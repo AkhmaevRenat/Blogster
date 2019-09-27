@@ -1,0 +1,7 @@
+.container
+  = render 'nav'
+  h1 All users
+  - @users.each do |user|
+    p
+      strong email:
+      = user.email
