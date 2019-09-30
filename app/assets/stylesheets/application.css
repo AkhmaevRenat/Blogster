@@ -1,15 +1,69 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+.container {
+  width: 75%;
+  margin: 0 auto;
+  background-color: rgba(109, 189, 209, 0.315);
+  height: 100%;
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+}
+
+nav a:hover {
+  color: blue;
+}
+
+nav {
+  padding: 15px;
+  color: black;
+  text-align: center;
+}
+
+.menu {
+  display: flex;
+  color: black;
+  justify-content: flex-end;
+  background-color: gainsboro;
+}
+
+.menu li {
+  text-transform: uppercase;
+  list-style: none;
+  margin-left: 20px;
+}
+
+.menu li a {
+  border-radius: 15px;
+  padding: 10px;
+  background-color: rgba(109, 189, 209, 0.315);
+}
+
+.menu li a:hover {
+  color: rgba(109, 189, 209);
+  background-color: black;
+}
+
+h1 {
+  text-align: center;
+}
+
+.comment_container {
+  padding: 15px;
+  display: flex;
+  flex-basis: 4;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  background-color: gainsboro;
+  margin: 25px;
+}
+
+.comment_container p.time {
+  color: rgba(28, 17, 80, 0.582);
+}
+
+.comment_container a {
+  color: rgba(255, 0, 0, 0.644);
+  text-decoration: none;
+}

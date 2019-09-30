@@ -10,23 +10,17 @@
     p
       strong Author:
       = @article.user.email
+    p
+      - if @article.user == current_user
+        = link_to 'Destroy', article_path(@article), method: :delete
+        br
+        br
+        = link_to 'Edit', edit_article_path(@article)
     h2 Comments
     - @comments.each do |comment|
-      p
-        strong Comment:
-        = comment.body
-      p
-        strong Author:
-        = comment.user.email
+      = render partial: 'comments/comment', locals: { comment: comment}
 
     h2 Add a comment
-    = form_with(model: [ @article, @article.comments.build ], local: true) do |form|
-      p  
-        = form.label :body
-        br
-        = form.text_area :body
-      p
-        = form.submit
-    = link_to 'Edit', edit_article_path(@article)
+    = render 'comments/form'
     br
     = link_to 'Back', articles_path

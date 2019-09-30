@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+gem 'cancan'
 gem 'devise'
 ruby '2.5.3'
 
@@ -11,7 +12,6 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'slim-rails'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
-gem 'ruby_gntp'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -49,6 +49,7 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'bullet'
   gem 'web-console', '>= 3.3.0'
+  gem 'kaminari'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

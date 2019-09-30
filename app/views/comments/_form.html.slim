@@ -1,0 +1,7 @@
+= form_with(model: [ @article, @article.comments.build ], local: true, remote: true) do |form|
+      p  
+        = form.label :body
+        br
+        = form.text_area :body
+      p
+        = form.submit

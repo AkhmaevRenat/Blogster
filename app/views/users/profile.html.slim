@@ -1,0 +1,14 @@
+.container
+  = render './articles/nav'
+  h1 My profile
+  p
+    Strong Name:
+    = @user.name
+  p
+    Strong email:
+    = @user.email
+  h2 List of your articles
+  - @articles.each do |article|
+    p = article.title
+    p = link_to 'show', article_path(article)
+  = paginate @articles

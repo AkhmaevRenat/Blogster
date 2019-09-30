@@ -4,6 +4,6 @@ link rel="stylesheet" type="text/css" href="./assets/stylesheets/style.css"
 body
   .container
     = render './articles/nav'
-    h1 Welcome to Blogster 
-        = current_user.name
+    h1 
+      = current_user.present? ? "Welcome to blogster #{current_user.name}" : 'Welcome to blogster'
     p Please sign in or sign up to use web-site

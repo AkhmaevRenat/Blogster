@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :initialize_article, only: [:edit, :show, :update, :destroy]
+  before_action :can_change_article?, only: [:edit, :update, :destroy]
   def new
     @article = Article.new
   end
@@ -21,7 +22,7 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.all
+    @articles = Article.order(:user_id).page(params[:page])
   end
 
   def update
@@ -42,12 +43,18 @@ class ArticlesController < ApplicationController
     @user = current_user
   end
 
-  private 
+  private
+
   def article_params
     params.require(:article).permit(:title, :text)
   end
 
   def initialize_article
     @article = Article.find(params[:id])
+    # return resource_not_found unless @article.present?
+  end
+
+  def can_change_article?
+    head 403 unless @article.user == current_user
   end
 end
