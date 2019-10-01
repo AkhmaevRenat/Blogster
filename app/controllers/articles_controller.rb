@@ -3,7 +3,6 @@
 class ArticlesController < ApplicationController
   before_action :initialize_article, only: %i[edit show update destroy]
   before_action :can_change_article?, only: %i[edit update destroy]
-  before_action :initialize_search, only: %i[index search]
 
   def new
     @article = Article.new
@@ -25,10 +24,7 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.order(:user_id).page(params[:page])
-  end
-
-  def search
+    @q = Article.ransack(params[:q])
     @articles = @q.result(distinct: true).page(params[:page])
   end
 
@@ -63,9 +59,5 @@ class ArticlesController < ApplicationController
 
   def can_change_article?
     head 403 unless @article.user == current_user
-  end
-
-  def initialize_search
-    @q = Article.ransack(params[:q])
   end
 end

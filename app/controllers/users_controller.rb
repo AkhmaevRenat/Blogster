@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :initialize_search, only: %i[index search]
-
   def index
-    @users = User.order(:name).page(params[:page])
-  end
-
-  def search
+    @q = User.ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page])
   end
 
@@ -19,11 +14,5 @@ class UsersController < ApplicationController
   def profile
     @user = current_user
     @articles = @user.articles.page(params[:page])
-  end
-
-  private
-
-  def initialize_search
-    @q = User.ransack(params[:q])
   end
 end

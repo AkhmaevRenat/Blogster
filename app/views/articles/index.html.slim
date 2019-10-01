@@ -7,9 +7,9 @@ head
       h1 Listing articles
       .search
         h3 Search
-        = search_form_for @q, url: search_articles_path, html: { method: :post } do |f|
-          = f.text_field :title_or_text_cont, :placeholder => 'title or body contains'
-          f.submit
+        = search_form_for @q, url: articles_path, html: { method: :get } do |form|
+          = form.text_field :title_or_text_cont, :placeholder => 'title or body contains'
+          = form.submit
       table
         tr align="left"
           th Title
@@ -30,4 +30,4 @@ head
                   data: { confirm: 'Are you sure?' }
 
       = link_to 'New article', new_article_path
-      = paginate @articles
+      = paginate(@articles)

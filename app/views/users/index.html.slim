@@ -3,9 +3,9 @@
   h1 All users
   .search
         h3 Search
-        = search_form_for @q, url: search_users_path, html: { method: :post } do |f|
+        = search_form_for @q, url: users_path, html: { method: :get } do |f|
           = f.text_field :email_or_name_cont, :placeholder => 'title or body contains'
-          f.submit
+          = f.submit
   table
     tr align="left"
       th Name
