@@ -1,16 +1,21 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
-  before_action :initialize_article, only: [:destroy, :create]
+  before_action :initialize_article, only: %i[destroy create]
+
+  def index
+    @comments = Comment.order(:body).page(params[:page])
+  end
+
+  def show
+    @comment = Comment.find(params[:id])
+  end
+
   def create
     @comment = @article.comments.new(comment_params)
     @comment.user = current_user
+    @comment.save!
     respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @article}
-        format.json { render :show, status: :created, location: @article }
-      else
-        format.html { render :new }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
       format.js
     end
     # @comment.save
@@ -21,18 +26,8 @@ class CommentsController < ApplicationController
     @comment = @article.comments.find(params[:id])
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to @article }
-      format.json { head :no_content }
       format.js
     end
-  end
-
-  def index
-    @comments = Comment.order(:body).page(params[:page])
-  end
-
-  def show
-    @comment = Comment.find(params[:id])
   end
 
   private

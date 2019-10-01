@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -65,7 +67,7 @@ Rails.application.configure do
     Bullet.alert = true
     Bullet.bullet_logger = true
     Bullet.console = true
-    #Bullet.growl = true
+    # Bullet.growl = true
     # #Bullet.xmpp = { :account  => 'bullets_account@jabber.org',
     #                 :password => 'bullets_password_for_jabber',
     #                 :receiver => 'your_account@jabber.org',

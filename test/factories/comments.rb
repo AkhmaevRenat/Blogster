@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :comment do
     user_id { 1 }
-    body { "MyText" }
+    body { 'MyText' }
     article { nil }
   end
 end

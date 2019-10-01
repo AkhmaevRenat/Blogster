@@ -1,0 +1,63 @@
+require:
+  - rubocop-performance
+  - rubocop-rspec
+  - rubocop-rails
+
+AllCops:
+  TargetRailsVersion: 4.2.7
+  TargetRubyVersion: 2.3.8
+  DisplayCopNames: true
+  Exclude:
+    - bin//*
+    - db//*
+    - config//*
+    - migrate.rb
+    - tmp//*
+    - vendor//*
+
+AssignmentInCondition:
+  Enabled: false
+
+Style/AndOr:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 23
+
+Metrics/BlockLength:
+  Exclude:
+    - Guardfile
+    - config//*
+    - lib/tasks/.rake
+    - spec/**/
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Metrics/LineLength:
+  Max: 120
+
+Rails:
+  Enabled: true
+
+RSpec/MultipleExpectations:
+  Max: 40
+
+RSpec/NestedGroups:
+  Max: 10
+
+RSpec/ExampleLength:
+  Max: 40
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+RSpec/EmptyExampleGroup:
+  CustomIncludeMethods:
+    - example_request

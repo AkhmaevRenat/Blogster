@@ -67,3 +67,8 @@ h1 {
   color: rgba(255, 0, 0, 0.644);
   text-decoration: none;
 }
+
+.search {
+  float: right;
+  padding-right: 50px;
+}

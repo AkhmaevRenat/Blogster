@@ -5,8 +5,13 @@ head
     .container
       = render 'nav'
       h1 Listing articles
+      .search
+        h3 Search
+        = search_form_for @q, url: search_articles_path, html: { method: :post } do |f|
+          = f.text_field :title_or_text_cont, :placeholder => 'title or body contains'
+          f.submit
       table
-        tr
+        tr align="left"
           th Title
           th Text
           th Author

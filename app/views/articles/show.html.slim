@@ -16,11 +16,12 @@
         br
         br
         = link_to 'Edit', edit_article_path(@article)
-    h2 Comments
-    - @comments.each do |comment|
-      = render partial: 'comments/comment', locals: { comment: comment}
+    #comments
+      h2 Comments
+      - @comments.each do |comment|
+        = render partial: 'comments/show', locals: { comment: comment}
 
     h2 Add a comment
-    = render 'comments/form'
+    = render partial: 'comments/form'
     br
     = link_to 'Back', articles_path

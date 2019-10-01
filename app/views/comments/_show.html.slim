@@ -8,6 +8,6 @@ div id="comment_#{comment.id}"
       = comment.user.email
     p
       - if comment.user == current_user
-        = link_to 'Destroy Comment', [comment.article, comment], method: :delete
+        = link_to 'Destroy Comment', [comment.article, comment], method: :delete, remote: true
     p.time
       = "posted #{distance_of_time_in_words(Time.now, comment.created_at)} ago"
