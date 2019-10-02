@@ -1,31 +1,34 @@
 .container
     = render 'nav'
-    p
-      strong Title:
-      = @article.title
+    .articles
+      p
+        strong Title:
+        = @article.title
 
-    p
-      strong Text:
-      = @article.text
-    p
-      strong Author:
-      = @article.user.email
-    p
-      - if @article.user == current_user
-        = link_to 'Destroy', article_path(@article), method: :delete
-        br
-        br
-        = link_to 'Edit', edit_article_path(@article)
-    p
-      - if current_user.present?
-      = link_to '♥', like_add_like_path(likeable_type: 'Article', likeable_id: @article.id), method: :get
-      = @article.likes_count
-    #comments
-      h2 Comments
-      - @comments.each do |comment|
-        = render partial: 'comments/show', locals: { comment: comment}
+      p
+        strong Text:
+        = @article.text
+      p
+        strong Author:
+        = @article.user.name
+      p
+        - if @article.user == current_user
+          = link_to 'Destroy', article_path(@article), method: :delete
+          br
+          br
+          = link_to 'Edit', edit_article_path(@article)
+      p
+        - if current_user.present?
+          = link_to '♥', like_add_like_path(likeable_type: 'Article', likeable_id: @article.id), method: :get
+        - else
+          em ♥
+        = @article.likes_count
+      #comments
+        h2 Comments
+        - @comments.each do |comment|
+          = render partial: 'comments/show', locals: { comment: comment}
 
-    h2 Add a comment
-    = render partial: 'comments/form'
-    br
-    = link_to 'Back', articles_path
+      h2 Add a comment
+      = render partial: 'comments/form'
+      br
+      = link_to 'Back', articles_path

@@ -5,13 +5,16 @@ class LikesController < ApplicationController
     @like = Likes.new
   end
 
-  def create
+  def create; end
+
+  def destroy; end
+
+  def like_decision
     likeable_object = params[:likeable_type].constantize.find(params[:likeable_id])
-    current_like = Like.where(likeable_id: params[:likeable_id])
-                       .where(likeable_type: params[:likeable_type])
-                       .find_by(user_id: current_user.id)
+    current_like = current_user.likes.where(likeable_id: params[:likeable_id])
+                               .where(likeable_type: params[:likeable_type])
     if current_like.present?
-      current_like.destroy
+      current_like.destroy_all
       likeable_object.likes_count -= 1
     else
       @like = likeable_object.likes.new
@@ -22,6 +25,4 @@ class LikesController < ApplicationController
     likeable_object.save
     redirect_back(fallback_location: root_path)
   end
-
-  def destroy; end
 end
