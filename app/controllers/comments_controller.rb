@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @article.comments.new(comment_params)
     @comment.user = current_user
+    @comment.likes_count = 0
     @comment.save!
     respond_to do |format|
       format.js

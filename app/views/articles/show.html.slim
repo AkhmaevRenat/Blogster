@@ -16,6 +16,10 @@
         br
         br
         = link_to 'Edit', edit_article_path(@article)
+    p
+      - if current_user.present?
+      = link_to '♥', like_add_like_path(likeable_type: 'Article', likeable_id: @article.id), method: :get
+      = @article.likes_count
     #comments
       h2 Comments
       - @comments.each do |comment|

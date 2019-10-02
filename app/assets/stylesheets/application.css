@@ -68,7 +68,27 @@ h1 {
   text-decoration: none;
 }
 
+.functional_container {
+  border-bottom: 2px solid white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 .search {
-  float: right;
   padding-right: 50px;
+}
+
+.articles {
+  padding-left: 50px;
+  border: 2px solid white;
+}
+
+.articles p.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.articles h3 a {
+  color: black;
+  text-decoration: none;
 }

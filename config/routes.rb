@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/500', to: 'errors#internal_error'
   get '/403', to: 'errors#forbidden'
   devise_for :users
+  get 'like/add_like' => 'likes#create', via: [:get]
   resources :users do
     collection do
         match 'search' => 'users#search', via: [:get, :post], as: :search

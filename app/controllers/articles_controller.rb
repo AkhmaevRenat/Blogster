@@ -12,6 +12,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = current_user.articles.new(article_params)
+    @article.likes_count = 0
     if @article.save
       redirect_to @article
     else

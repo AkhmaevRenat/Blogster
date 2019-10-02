@@ -7,6 +7,9 @@ div id="comment_#{comment.id}"
       strong Author:
       = comment.user.email
     p
+      = link_to '♥', like_add_like_path(likeable_type: 'Comment', likeable_id: comment.id), method: :get
+      = comment.likes_count
+    p
       - if comment.user == current_user
         = link_to 'Destroy Comment', [comment.article, comment], method: :delete, remote: true
     p.time

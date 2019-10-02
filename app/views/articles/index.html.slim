@@ -5,29 +5,26 @@ head
     .container
       = render 'nav'
       h1 Listing articles
-      .search
-        h3 Search
-        = search_form_for @q, url: articles_path, html: { method: :get } do |form|
-          = form.text_field :title_or_text_cont, :placeholder => 'title or body contains'
-          = form.submit
-      table
-        tr align="left"
-          th Title
-          th Text
-          th Author
-          th colspan="3"
+      .functional_container
+        .search
+          h3 Search
+          = search_form_for @q, url: articles_path, html: { method: :get } do |form|
+            = form.text_field :title_or_text_cont, :placeholder => 'title or body contains'
+            = form.submit
+        = link_to 'New article', new_article_path
               
-          - @articles.each do |article|
-            tr
-              td = article.title
-              td = article.text
-              td = User.find(article.user_id).email
-              td = link_to 'Show', article_path(article)
-              - if article.user_id == current_user.id
-                td = link_to 'Edit', edit_article_path(article)
-                td = link_to 'Delete', article_path(article),
+      - @articles.each do |article|
+        .articles
+          h3 = link_to "#{article.title}", article_path(article)
+          p = article.text
+          h3 = User.find(article.user_id).name
+          - if current_user.present? && article.user_id == current_user.id
+            p.buttons
+              #button1
+                = link_to 'Edit', edit_article_path(article)
+              #button2
+                = link_to 'Delete', article_path(article),
                   method: :delete,
                   data: { confirm: 'Are you sure?' }
 
-      = link_to 'New article', new_article_path
       = paginate(@articles)
