@@ -2,13 +2,7 @@
 
 Rails.application.routes.draw do
   get 'profile', to: 'users#profile'
-  get '/404', to: 'errors#not_found'
-  get '/422', to: 'errors#unacceptable'
-  get '/500', to: 'errors#internal_error'
-  get '/403', to: 'errors#forbidden'
   devise_for :users
-  get 'like/add_like' => 'likes#like_decision', via: [:get]
-  get 'like/remove_like' => 'likes#desrtroy', via: [:delete]
   resources :users do
     collection do
         match 'search' => 'users#search', via: [:get, :post], as: :search
@@ -18,7 +12,14 @@ Rails.application.routes.draw do
     collection do
       match 'search' => 'articles#search', via: [:get, :post], as: :search
     end
-    resources :comments
+    member do
+      get 'like' => 'likes#add_like'
+    end
+    resources :comments do
+      member do
+        get 'like' => 'likes#add_like'
+      end
+    end
   end
   root 'articles#index'
 end

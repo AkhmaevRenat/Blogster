@@ -19,10 +19,10 @@
           = link_to 'Edit', edit_article_path(@article)
       p
         - if current_user.present?
-          = link_to '♥', like_add_like_path(likeable_type: 'Article', likeable_id: @article.id), method: :get
-        - else
-          em ♥
-        = @article.likes_count
+          = link_to '♥', like_article_path(@article, likeable_type: 'Article',
+            likeable_id: @article.id), class: 'article_like',
+            data: { method: :get, remote: true }
+          span#likes_count = @article.likes_count
       #comments
         h2 Comments
         - @comments.each do |comment|

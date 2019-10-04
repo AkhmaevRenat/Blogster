@@ -5,24 +5,28 @@ class LikesController < ApplicationController
     @like = Likes.new
   end
 
+  def index; end
+
   def create; end
 
   def destroy; end
 
-  def like_decision
+  def add_like
+    add_like_command.call(
+      likeable_type: params[:likeable_type],
+      likeable_id: params[:likeable_id],
+      user: current_user
+    )
     likeable_object = params[:likeable_type].constantize.find(params[:likeable_id])
-    current_like = current_user.likes.where(likeable_id: params[:likeable_id])
-                               .where(likeable_type: params[:likeable_type])
-    if current_like.present?
-      current_like.destroy_all
-      likeable_object.likes_count -= 1
-    else
-      @like = likeable_object.likes.new
-      @like.user_id = current_user.id
-      @like.save
-      likeable_object.likes_count += 1
+    respond_to do |format|
+      format.json { render json: { likes_count: likeable_object.likes_count, id: likeable_object.id } }
+      format.js
     end
-    likeable_object.save
-    redirect_back(fallback_location: root_path)
+  end
+
+  private
+
+  def add_like_command
+    @add_like_command ||= LikesManagement::AddLike.new
   end
 end

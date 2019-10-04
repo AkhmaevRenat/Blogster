@@ -8,7 +8,7 @@ div id="comment_#{comment.id}"
       = comment.user.email
     p
       - if current_user.present?
-        = link_to '♥', like_add_like_path(likeable_type: 'Comment', likeable_id: comment.id), method: :get
+        / = link_to '♥', like_article_comment_path(comment.article, comment)
       - else
         em ♥
       = comment.likes_count
