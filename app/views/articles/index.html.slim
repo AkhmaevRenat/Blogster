@@ -1,30 +1,21 @@
 head
   title Articles
 
-  body
-    .container
-      = render 'nav'
-      h1 Listing articles
-      .functional_container
-        .search
-          h3 Search
-          = search_form_for @q, url: articles_path, html: { method: :get } do |form|
-            = form.text_field :title_or_text_cont, :placeholder => 'title or body contains'
-            = form.submit
-        = link_to 'New article', new_article_path
-              
-      - @articles.each do |article|
-        .articles
-          h3 = link_to "#{article.title}", article_path(article)
-          p = article.text
-          h3 = User.find(article.user_id).name
-          - if current_user.present? && article.user_id == current_user.id
-            p.buttons
-              #button1
-                = link_to 'Edit', edit_article_path(article)
-              #button2
-                = link_to 'Delete', article_path(article),
-                  method: :delete,
-                  data: { confirm: 'Are you sure?' }
-
-      = paginate(@articles)
+body
+  .container
+    .row
+      .col-3
+        p class = 'py-3 px-lg-5' LOGO
+        = render 'nav'
+      .col-6
+        p class='text-center py-3 px-lg-5 border bg-light' Blogster
+        div class ='text-center py-3 px-lg-5 border bg-light'
+          = render 'form'
+        h1.text-center Listing articles
+        #articles
+          - @articles.each do |article|
+              = render partial: 'show', locals: { article: article}
+          = paginate(@articles)
+      .col-3
+        p = search_form_for @q, url: articles_path, html: { method: :get } do |form|
+            = form.text_field :title_or_text_cont, :placeholder => 'Search in blogster'

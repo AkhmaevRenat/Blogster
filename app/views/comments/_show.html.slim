@@ -6,12 +6,11 @@ div id="comment_#{comment.id}"
     p
       strong Author:
       = comment.user.email
-    p
+    p.like
       - if current_user.present?
-        / = link_to '♥', like_article_comment_path(comment.article, comment)
-      - else
-        em ♥
-      = comment.likes_count
+        a.add_like data-likeable-type='Comment' data-likeable-id="#{comment.id}"
+          = "❤️️"
+        span.likes_count = comment.likes_count
     p
       - if comment.user == current_user
         = link_to 'Destroy Comment', [comment.article, comment], method: :delete, remote: true

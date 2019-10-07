@@ -1,33 +1,38 @@
 .container
-    = render 'nav'
-    .articles
-      p
-        strong Title:
-        = @article.title
+  .row
+    .col-3
+      = render 'nav'
+    .col-6
+      .articles
+        p
+          strong Title:
+          = @article.title
 
-      p
-        strong Text:
-        = @article.text
-      p
-        strong Author:
-        = @article.user.name
-      p
-        - if @article.user == current_user
-          = link_to 'Destroy', article_path(@article), method: :delete
-          br
-          br
-          = link_to 'Edit', edit_article_path(@article)
-      p.like
-        - if current_user.present?
-          a.add_like data-likeable-type='Article' data-likeable-id="#{@article.id}"
-            = "like"
-          span.likes_count = @article.likes_count
-      #comments
-        h2 Comments
-        - @comments.each do |comment|
-          = render partial: 'comments/show', locals: { comment: comment}
+        p
+          strong Text:
+          = @article.text
+        p
+          strong Author:
+          = @article.user.name
+        p
+          - if @article.user == current_user
+            = link_to 'Destroy', article_path(@article), method: :delete
+            br
+            br
+            = link_to 'Edit', edit_article_path(@article)
+        p.like
+          - if current_user.present?
+            a.add_like data-likeable-type='Article' data-likeable-id="#{@article.id}"
+              = "❤️️"
+            span.likes_count = @article.likes_count
+        #comments
+          h2 Comments
+          - @comments.each do |comment|
+            = render partial: 'comments/show', locals: { comment: comment}
 
-      h2 Add a comment
-      = render partial: 'comments/form'
-      br
-      = link_to 'Back', articles_path
+        h2 Add a comment
+        = render partial: 'comments/form'
+        br
+        = link_to 'Back', articles_path
+    .col-3
+      p privet

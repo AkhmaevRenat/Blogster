@@ -13,10 +13,9 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.new(article_params)
     @article.likes_count = 0
-    if @article.save
-      redirect_to @article
-    else
-      render 'new'
+    @article.save
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -39,8 +38,9 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-
-    redirect_to articles_path
+    respond_to do |format|
+      format.js
+    end
   end
 
   def mypage
@@ -55,7 +55,6 @@ class ArticlesController < ApplicationController
 
   def initialize_article
     @article = Article.find(params[:id])
-    # return resource_not_found unless @article.present?
   end
 
   def can_change_article?

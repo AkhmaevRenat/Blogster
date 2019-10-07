@@ -1,20 +1,7 @@
-= form_with model: @article, local: true do |form|
-
-  - if @article.errors.any?
-    #error_explanation
-      h2 Errors:
-      ul = @article.errors.full_messages.each do |msg|
-          li = msg
-
+= form_with(model: [@article, current_user.articles.build]) do |form|
   p
-    = form.label :title 
-    br
-    = form.text_field :title
-
+    = form.text_field :title, :placeholder => 'Title'
   p
-    = form.label :text
-    br
-    = form.text_area :text
-
+    = form.text_area :text, :placeholder => "What's new?"
   p
-    = form.submit
+    = form.submit "Send"

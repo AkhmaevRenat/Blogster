@@ -1,0 +1,19 @@
+div class='container border bg-light' id='article_#{article.id}' 
+  h3 = link_to "#{article.title}", article_path(article)
+  p = article.text
+  p 
+    = link_to "#{User.find(article.user_id).name}", user_path(User.find(article.user_id))
+  p.like
+    - if current_user.present?
+      a.add_like data-likeable-type='Article' data-likeable-id="#{article.id}"
+        = "❤️️"
+      span.likes_count = article.likes_count
+  - if current_user.present? && article.user_id == current_user.id
+    p.buttons
+      #button1
+        = link_to 'Edit', edit_article_path(article)
+      #button2
+        = link_to 'Delete', article_path(article),
+          method: :delete,
+          data: { confirm: 'Are you sure?' },
+          remote: true
