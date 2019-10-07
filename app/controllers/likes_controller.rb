@@ -1,16 +1,6 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  def new
-    @like = Likes.new
-  end
-
-  def index; end
-
-  def create; end
-
-  def destroy; end
-
   def add_like
     add_like_command.call(
       likeable_type: params[:likeable_type],
@@ -18,10 +8,7 @@ class LikesController < ApplicationController
       user: current_user
     )
     likeable_object = params[:likeable_type].constantize.find(params[:likeable_id])
-    respond_to do |format|
-      format.json { render json: { likes_count: likeable_object.likes_count, id: likeable_object.id } }
-      format.js
-    end
+    render json: { likes_count: likeable_object.likes_count }
   end
 
   private

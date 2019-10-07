@@ -12,14 +12,9 @@ Rails.application.routes.draw do
     collection do
       match 'search' => 'articles#search', via: [:get, :post], as: :search
     end
-    member do
-      get 'like' => 'likes#add_like'
-    end
-    resources :comments do
-      member do
-        get 'like' => 'likes#add_like'
-      end
-    end
+    resources :comments
   end
+
+  get 'likes/add', to: 'likes#add_like'
   root 'articles#index'
 end
