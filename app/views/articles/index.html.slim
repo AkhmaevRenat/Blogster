@@ -8,14 +8,16 @@ body
         p class = 'py-3 px-lg-5' LOGO
         = render 'nav'
       .col-6
-        p class='text-center py-3 px-lg-5 border bg-light' Blogster
-        div class ='text-center py-3 px-lg-5 border bg-light'
+        h2 class='text-center py-3 px-lg-5 my-lg-0 border bg-light' id="blogster" 
+          = link_to 'Blogster', articles_path, :class => "text-dark"
+        div class ='text-center pt-3 px-lg-5 my-lg-0 border bg-light' id="form"
           = render 'form'
-        h1.text-center Listing articles
+        h2.text-center Feed
         #articles
           - @articles.each do |article|
+            div class="article_#{article.id} py-1"
               = render partial: 'show', locals: { article: article}
           = paginate(@articles)
       .col-3
         p = search_form_for @q, url: articles_path, html: { method: :get } do |form|
-            = form.text_field :title_or_text_cont, :placeholder => 'Search in blogster'
+            = form.text_field :title_or_text_cont, :placeholder => 'Search in blogster',  :class => "form-control"

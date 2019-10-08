@@ -1,7 +1,5 @@
 = form_with(model: [ @article, @article.comments.build ]) do |form|
-  p  
-    = form.label :body
-    br
-    = form.text_area :body
-  p
-    = form.submit
+  p 
+    = form.text_area :body, :placeholder => "Body", :class => "form-control"
+  p.text-right
+    = form.submit "Comment", :class => "btn btn-outline-primary"

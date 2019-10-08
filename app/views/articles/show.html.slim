@@ -1,38 +1,25 @@
-.container
-  .row
-    .col-3
-      = render 'nav'
-    .col-6
-      .articles
-        p
-          strong Title:
-          = @article.title
+head
+  title Articles
 
-        p
-          strong Text:
-          = @article.text
-        p
-          strong Author:
-          = @article.user.name
-        p
-          - if @article.user == current_user
-            = link_to 'Destroy', article_path(@article), method: :delete
-            br
-            br
-            = link_to 'Edit', edit_article_path(@article)
-        p.like
-          - if current_user.present?
-            a.add_like data-likeable-type='Article' data-likeable-id="#{@article.id}"
-              = "❤️️"
-            span.likes_count = @article.likes_count
+body
+  .container
+    .row
+      .col-3
+        p class = 'py-3 px-lg-5' LOGO
+        = render 'nav'
+      .col-6
+        h2 class='text-center py-3 px-lg-5 my-lg-0 border bg-light' id="blogster" 
+          = link_to 'Blogster', articles_path, :class => "text-dark"
+        div class="article_#{@article.id}"
+          = render partial: 'show', locals: { article: @article}
+        .text-right
+          - if @article.present?
+            = link_to 'Back', articles_path, :class => "btn btn-outline-primary mt-3"
         #comments
-          h2 Comments
+          h2.text-center Comments
           - @comments.each do |comment|
             = render partial: 'comments/show', locals: { comment: comment}
 
         h2 Add a comment
         = render partial: 'comments/form'
-        br
-        = link_to 'Back', articles_path
-    .col-3
-      p privet
+      .col-3

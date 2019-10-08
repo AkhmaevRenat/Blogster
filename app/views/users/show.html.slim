@@ -1,14 +1,21 @@
-.container
-  = render './articles/nav'
-  h1 
-    = "All #{@user.name} articles"
-  - @articles.each do |article|
-    p
-      strong Title:
-      = article.title
-    p
-      strong Text:
-      = article.text
-    p
-      = link_to 'Show', article_path(article)
-  = paginate @articles
+head
+  title Articles
+
+body
+  .container
+    .row
+      .col-3
+        p class = 'py-3 px-lg-5' LOGO
+        = render '/articles/nav'
+      .col-6
+        h2 class='text-center py-3 px-lg-5 my-lg-0 border bg-light' id="blogster" 
+          = link_to 'Blogster', articles_path, :class => "text-dark"
+        h2.text-center ="#{@user.name}'s articles"
+        #articles
+          - @articles.each do |article|
+            div class="article_#{article.id} py-1"
+              = render partial: '/articles/show', locals: { article: article}
+          = paginate(@articles)
+      .col-3
+        p = search_form_for @q, url: user_path, html: { method: :get } do |form|
+            = form.text_field :title_or_text_cont, :placeholder => "Search for #{@user.name}'s articles",  :class => "form-control"

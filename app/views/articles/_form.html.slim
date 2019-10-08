@@ -1,7 +1,10 @@
-= form_with(model: [@article, current_user.articles.build]) do |form|
-  p
-    = form.text_field :title, :placeholder => 'Title'
-  p
-    = form.text_area :text, :placeholder => "What's new?"
-  p
-    = form.submit "Send"
+- if user_signed_in?
+  = form_with(model: [@article, current_user.articles.build]) do |form|
+    p
+      = form.text_field :title, :placeholder => 'Title', :class => "form-control"
+    p
+      = form.text_area :text, :placeholder => "What's new?", :class => "form-control"
+    p.text-right
+      = form.submit "Send", :class => "btn btn-outline-primary"
+- else
+  p.text-info Please sign in to publish articles and comments

@@ -1,19 +1,22 @@
-div class='container border bg-light' id='article_#{article.id}' 
-  h3 = link_to "#{article.title}", article_path(article)
-  p = article.text
-  p 
-    = link_to "#{User.find(article.user_id).name}", user_path(User.find(article.user_id))
-  p.like
-    - if current_user.present?
-      a.add_like data-likeable-type='Article' data-likeable-id="#{article.id}"
-        = "❤️️"
-      span.likes_count = article.likes_count
-  - if current_user.present? && article.user_id == current_user.id
-    p.buttons
-      #button1
-        = link_to 'Edit', edit_article_path(article)
-      #button2
-        = link_to 'Delete', article_path(article),
+div class='container border bg-light px-3' id='article_#{article.id}'
+  div class="flex row p-3"
+    div
+      = link_to "#{User.find(article.user_id).name}", user_path(User.find(article.user_id)), :class => "text-dark"
+    div class="ml-auto text-muted"
+      ="#{User.find(article.user_id).email}"
+  h2 class="py-2"
+    = link_to "#{article.title}", article_path(article)
+  p  class="py-2"
+    = article.text
+  div class="flex row w-100"
+    - if current_user.present? && article.user_id == current_user.id
+      = button_to 'Edit', edit_article_path(article), :class => "btn btn-outline-primary m-3"
+      = button_to 'Delete', article_path(article), :class => "btn btn-outline-danger m-3",
           method: :delete,
           data: { confirm: 'Are you sure?' },
           remote: true
+    div class="like ml-auto my-4"
+      - if current_user.present?
+        a.add_like data-likeable-type='Article' data-likeable-id="#{article.id}"
+          = "❤️️"
+        span.likes_count = article.likes_count

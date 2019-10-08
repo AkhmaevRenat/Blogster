@@ -1,18 +1,21 @@
-div id="comment_#{comment.id}"
-  .comment_container
-    p
-      strong Comment:
-      = comment.body
-    p
-      strong Author:
-      = comment.user.email
-    p.like
+div class='container border bg-light px-3' id='comment_#{comment.id}'
+  div class="flex row p-3"
+    div
+      = link_to "#{User.find(comment.user_id).name}", user_path(User.find(comment.user_id)), :class => "b text-dark"
+    div class="text-secondary ml-3"
+      = "#{distance_of_time_in_words(Time.now, comment.created_at)} ago"
+    div class="ml-auto text-muted"
+      ="#{User.find(comment.user_id).email}"
+  p class="py-2"
+    = comment.body
+  div class="flex row w-100"
+    - if current_user.present? && comment.user_id == current_user.id || comment.user_id == comment.article.user.id
+      = button_to 'Delete', article_path(comment), :class => "btn btn-outline-danger m-3",
+          method: :delete,
+          data: { confirm: 'Are you sure?' },
+          remote: true
+    div class="inline-flex like ml-auto my-4"
       - if current_user.present?
         a.add_like data-likeable-type='Comment' data-likeable-id="#{comment.id}"
           = "❤️️"
         span.likes_count = comment.likes_count
-    p
-      - if comment.user == current_user
-        = link_to 'Destroy Comment', [comment.article, comment], method: :delete, remote: true
-    p.time
-      = "posted #{distance_of_time_in_words(Time.now, comment.created_at)} ago"
