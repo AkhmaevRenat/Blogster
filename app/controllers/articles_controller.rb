@@ -20,11 +20,11 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @comments = @article.comments.eager_load(:user)
+    @comments = @article.comments.eager_load(:user).order(:created_at)
   end
 
   def index
-    @q = Article.ransack(params[:q])
+    @q = Article.order(:created_at).reverse_order.ransack(params[:q])
     @articles = @q.result(distinct: true).page(params[:page])
   end
 

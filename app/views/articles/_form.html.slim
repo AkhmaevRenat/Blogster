@@ -1,9 +1,9 @@
 - if user_signed_in?
-  = form_with(model: [@article, current_user.articles.build]) do |form|
+  = form_with(model: [@article, current_user.articles.build], local: true) do |form|
     p
-      = form.text_field :title, :placeholder => 'Title', :class => "form-control"
+      = form.text_field :title, :placeholder => 'Title', :class => "form-control", :id => "title"
     p
-      = form.text_area :text, :placeholder => "What's new?", :class => "form-control"
+      = form.text_area :text, :placeholder => "What's new?", :class => "form-control", :id => "text"
     p.text-right
       = form.submit "Send", :class => "btn btn-outline-primary"
 - else

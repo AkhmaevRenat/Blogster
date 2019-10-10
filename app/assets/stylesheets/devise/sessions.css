@@ -1,0 +1,15 @@
+html, body { 
+  height: 100%;
+}
+
+#container {
+  height: 100%;
+}
+
+#row {
+  min-height: 100%;
+}
+
+#left_column {
+  background-color: rgb(112, 159, 252)
+}

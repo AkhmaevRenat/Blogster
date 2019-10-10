@@ -3,9 +3,7 @@
 class CommentsController < ApplicationController
   before_action :initialize_article, only: %i[destroy create]
 
-  def index
-    @comments = Comment.order(:body).page(params[:page])
-  end
+  def index; end
 
   def show
     @comment = Comment.find(params[:id])

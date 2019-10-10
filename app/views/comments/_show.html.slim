@@ -1,4 +1,4 @@
-div class='container border bg-light px-3' id='comment_#{comment.id}'
+div class='container border bg-light px-3 rounded-lg mb-3' id='comment_#{comment.id}'
   div class="flex row p-3"
     div
       = link_to "#{User.find(comment.user_id).name}", user_path(User.find(comment.user_id)), :class => "b text-dark"
@@ -14,8 +14,10 @@ div class='container border bg-light px-3' id='comment_#{comment.id}'
           method: :delete,
           data: { confirm: 'Are you sure?' },
           remote: true
-    div class="inline-flex like ml-auto my-4"
+    div class="d-flex like ml-auto my-4"
       - if current_user.present?
-        a.add_like data-likeable-type='Comment' data-likeable-id="#{comment.id}"
-          = "❤️️"
-        span.likes_count = comment.likes_count
+        - if comment.likes.find_by(user: current_user)
+          i class="add_like fas fa-heart mr-1 text-danger" data-likeable-type='Comment' data-likeable-id="#{comment.id}"
+        - else 
+          i class="add_like far fa-heart mr-1 text-danger" data-likeable-type='Comment' data-likeable-id="#{comment.id}"
+        span.likes_county = comment.likes_count

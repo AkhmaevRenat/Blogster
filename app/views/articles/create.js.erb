@@ -1,1 +1,4 @@
 $('#articles').prepend('<%= escape_javascript(render partial: 'show', locals: { article: @article}) %>')
+$('#title').val('');
+$('#text').val('');
+$alert( "Article has been published successfully" );

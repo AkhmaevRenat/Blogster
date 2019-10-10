@@ -1,18 +1,28 @@
-= render './articles/nav'
-h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    br/
-    = f.password_field :password, autocomplete: "current-password"
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
-= render "devise/shared/links"
+body
+  .container-fluid id="container"
+    div class="row d-flex flex-row" id="row"
+      .col-6 class="d-flex flex-column justify-content-center" id="left_column"
+      .col-6 class="d-flex flex-column align-items-start" id="right_column"
+        .container class="login my-5 px-5 text-right"
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            div class="d-flex justify-content-between"
+              = f.email_field :email, autofocus: true, autocomplete: "email",
+                :placeholder => "Email",
+                :class => "form-control mr-3"
+              = f.password_field :password, autocomplete: "current-password",
+                :placeholder => "Password",
+                :class => "form-control mr-3"
+              = f.submit "Log in", :class => "actions"
+            = link_to "Forgot your password?", new_password_path(resource_name), :class => "form-text text-muted"
+        / .form.w-50.mx-auto
+        /     .field
+        /       = f.label :password
+        /       br/
+        /       = f.password_field :password, autocomplete: "current-password", :class => "form-control"
+        /     - if devise_mapping.rememberable?
+        /       .field
+        /         = f.check_box :remember_me
+        /         = f.label :remember_me, :class => "form-check-label"
+        /     .actions
+        /       = f.submit "Log in", :class => "btn btn-outline-primary"
+        /   / = render "devise/shared/links"

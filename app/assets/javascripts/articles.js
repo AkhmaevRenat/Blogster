@@ -11,6 +11,7 @@ $(document).ready(function () {
       data: { likeable_type: type, likeable_id: id },
       success: function (data) {
         $likesCount.html(data.likes_count);
+        $like.toggleClass("far fas");
       }
     });
   });

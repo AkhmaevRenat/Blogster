@@ -1,0 +1,3 @@
+$('#comment').click(function () {
+  $(this).parent().parent().parent().append("<%= escape_javascript(render 'comments/form', @comment) %>");
+});

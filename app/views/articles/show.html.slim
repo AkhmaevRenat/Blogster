@@ -2,7 +2,7 @@ head
   title Articles
 
 body
-  .container
+  .container-fluid
     .row
       .col-3
         p class = 'py-3 px-lg-5' LOGO
@@ -19,7 +19,7 @@ body
           h2.text-center Comments
           - @comments.each do |comment|
             = render partial: 'comments/show', locals: { comment: comment}
-
-        h2 Add a comment
-        = render partial: 'comments/form'
+        .pt-3
+          = render partial: 'comments/form'
+          a name="comment"
       .col-3

@@ -2,7 +2,7 @@ head
   title Users
 
 body
-  .container
+  .container-fluid
     .row
       .col-3
         p class = 'py-3 px-lg-5' LOGO
@@ -10,7 +10,7 @@ body
       .col-6
         h2 class='text-center py-3 px-lg-5 my-lg-0 border bg-light' id="blogster" 
           = link_to 'Blogster', articles_path, :class => "text-dark"
-        h2.text-center Users
+        h2.text-center.mt-auto Users
         table class="table" id="users"
           thead
             tr 
@@ -31,4 +31,4 @@ body
         = paginate(@users)
       .col-3 class="my-3"
         = search_form_for @q, url: users_path, html: { method: :get } do |f|
-          = f.text_field :email_or_name_cont, :placeholder => 'Search users', :class => "form-control"
+          = f.text_field :email_or_name_cont, :placeholder => 'Search users', :class => "form-control w-75 mx-auto"

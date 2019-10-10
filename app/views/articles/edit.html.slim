@@ -1,6 +1,22 @@
-.container
-    = render 'nav'
-    h1 Editing article
-    = render 'form'
+head
+  title Articles
 
-    = link_to 'Back', articles_path
+body
+  .container-fluid
+    .row
+      .col-3
+        p class = 'py-3 px-lg-5' LOGO
+        = render 'nav'
+      .col-6
+        h2 class='text-center py-3 px-lg-5 my-lg-0 border bg-light' id="blogster" 
+          = link_to 'Blogster', articles_path, :class => "text-dark"
+        h2.text-center Editing
+        div class ='text-center pt-3 px-lg-5 my-lg-0 border bg-light' id="form"
+          = form_with(model: @article, local: true) do |form|
+            p
+              = form.text_field :title, :placeholder => 'Title', :class => "form-control", :id => "title"
+            p
+              = form.text_area :text, :placeholder => "What's new?", :class => "form-control", :id => "text"
+            p.text-right
+              = form.submit "Save changes", :class => "btn btn-outline-primary"
+        .col-3
