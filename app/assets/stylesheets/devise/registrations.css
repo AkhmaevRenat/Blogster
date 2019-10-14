@@ -1,0 +1,8 @@
+#reg-container {
+  height: 100%;
+  background-color: rgb(158, 149, 149);
+}
+
+#registration {
+  min-height: 75%;
+}

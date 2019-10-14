@@ -2,6 +2,10 @@ body
   .container-fluid id="container"
     div class="row d-flex flex-row" id="row"
       .col-6 class="d-flex flex-column justify-content-center" id="left_column"
+        .container class="functionality text-white w-auto"
+          h3.my-5 Read articles
+          h3.my-auto Find out, what people comment
+          h3.my-5 Join to disscuss
       .col-6 class="d-flex flex-column align-items-start" id="right_column"
         .container class="login my-5 px-5 text-right"
           = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
@@ -12,17 +16,10 @@ body
               = f.password_field :password, autocomplete: "current-password",
                 :placeholder => "Password",
                 :class => "form-control mr-3"
-              = f.submit "Log in", :class => "actions"
+              = f.submit "Log in", :class => "actions btn btn-outline-primary"
             = link_to "Forgot your password?", new_password_path(resource_name), :class => "form-text text-muted"
-        / .form.w-50.mx-auto
-        /     .field
-        /       = f.label :password
-        /       br/
-        /       = f.password_field :password, autocomplete: "current-password", :class => "form-control"
-        /     - if devise_mapping.rememberable?
-        /       .field
-        /         = f.check_box :remember_me
-        /         = f.label :remember_me, :class => "form-check-label"
-        /     .actions
-        /       = f.submit "Log in", :class => "btn btn-outline-primary"
-        /   / = render "devise/shared/links"
+        .container class="links my-5 w-75 px-5"
+          div class="d-flex flex-column"
+            h2.py-3 Find out, what is happening in the world at the moment.
+            h5.py-3.align-self-start Join Blogster right now!
+            = link_to 'Sign up', new_user_registration_path, :class => "btn btn-primary w-100 rounded-pill"
