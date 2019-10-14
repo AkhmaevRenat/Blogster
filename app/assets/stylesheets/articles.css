@@ -1,8 +1,9 @@
-.far, .far:hover {
+.fa-heart, a.far:hover {
   cursor: pointer;
   text-decoration: none;
 }
 
 .far, .fas {
   font-size: 20px;
+  cursor: pointer;
 }

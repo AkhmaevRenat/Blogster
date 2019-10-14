@@ -7,12 +7,14 @@ class CommentsController < ApplicationController
 
   def show
     @comment = Comment.find(params[:id])
+    authorize @comment
   end
 
   def create
     @comment = @article.comments.new(comment_params)
     @comment.user = current_user
     @comment.likes_count = 0
+    authorize @comment
     @comment.save!
     respond_to do |format|
       format.js

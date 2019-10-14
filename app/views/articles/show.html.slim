@@ -17,9 +17,15 @@ body
             = link_to 'Back', articles_path, :class => "btn btn-outline-primary mt-3"
         #comments
           h2.text-center Comments
+          - if not current_user.present?
+              h4.text-center No comments yet. Be first to comment!
           - @comments.each do |comment|
             = render partial: 'comments/show', locals: { comment: comment}
-        .pt-3
-          = render partial: 'comments/form'
-          a name="comment"
+        .pt-3  
+          - if current_user.present?
+            = render partial: 'comments/form'
+            a name="comment"
+          - else
+            a.text-info href="#{new_user_session_path}" 
+              p.text-center Please sign-in to comment 
       .col-3

@@ -11,7 +11,7 @@ div class='container border bg-light px-3 rounded-lg' id='article_#{article.id}'
   p class="pt-3"
     = article.text
   div class="d-flex w-100"
-    - if current_user.present? && article.user_id == current_user.id
+    - if current_user.present? && (article.user_id == current_user.id)
       div class="buttons d-flex my-auto"
         = link_to 'Edit', edit_article_path(article), :class => "btn btn-outline-primary mr-3"
         = button_to 'Delete', article_path(article), :class => "btn btn-outline-danger",
@@ -28,4 +28,6 @@ div class='container border bg-light px-3 rounded-lg' id='article_#{article.id}'
           i title="Like/unlike" class="add_like fas fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
         - else 
           i title="Like/unlike" class="add_like far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
-        span.likes_count = article.likes_count
+      - else
+        a title="Like/unlike" href="#{new_user_session_path}" class="add_like far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
+      span.likes_count = article.likes_count

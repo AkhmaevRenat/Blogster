@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    authorize @article
   end
 
   def edit; end
@@ -13,6 +14,7 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.new(article_params)
     @article.likes_count = 0
+    authorize @article
     @article.save
     respond_to do |format|
       format.js
@@ -26,6 +28,7 @@ class ArticlesController < ApplicationController
   def index
     @q = Article.order(:created_at).reverse_order.ransack(params[:q])
     @articles = @q.result(distinct: true).page(params[:page])
+    authorize @articles
   end
 
   def update
@@ -55,6 +58,7 @@ class ArticlesController < ApplicationController
 
   def initialize_article
     @article = Article.find(params[:id])
+    authorize @article
   end
 
   def can_change_article?

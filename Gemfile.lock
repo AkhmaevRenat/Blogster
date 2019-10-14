@@ -169,6 +169,8 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (4.0.1)
     puma (3.12.1)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.7)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -221,6 +223,7 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.3)
+    rubanok (0.2.1)
     ruby_dep (1.5.0)
     rubyzip (2.0.0)
     sass (3.7.4)
@@ -314,9 +317,11 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pry
   puma (~> 3.11)
+  pundit
   rails (~> 5.2.3)
   ransack!
   rspec-rails
+  rubanok
   sass-rails (~> 5.0)
   selenium-webdriver
   shoulda-matchers

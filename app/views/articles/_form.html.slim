@@ -1,5 +1,10 @@
 - if user_signed_in?
-  = form_with(model: [@article, current_user.articles.build], local: true) do |form|
+  = form_with(model: [@article, current_user.articles.build]) do |form|
+    div class="flex row p-3"
+      d.text-dark
+        = current_user.name
+      .ml-auto.text-muted
+        = current_user.email
     p
       = form.text_field :title, :placeholder => 'Title', :class => "form-control", :id => "title"
     p
