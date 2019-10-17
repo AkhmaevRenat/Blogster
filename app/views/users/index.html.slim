@@ -5,12 +5,12 @@ body
   .container-fluid
     .row
       .col-3
-        p class = 'py-3 px-lg-5' LOGO
+        p.py-4.my-lg-0.w-50.mx-auto.text-center LOGO
         = render '/articles/nav'
       .col-6
         h2 class='text-center py-3 px-lg-5 my-lg-0 border bg-light' id="blogster" 
           = link_to 'Blogster', articles_path, :class => "text-dark"
-        h2.text-center.mt-auto Users
+        h2.text-center Users
         table class="table" id="users"
           thead
             tr 
@@ -24,11 +24,11 @@ body
             div class="user_#{user.id} py-1"
               tr
                 th scope="row" =user.id
-                td =user.name
+                td =link_to "#{user.name}", user_path(user)
                 td =user.email
-                td =link_to "#{user.articles.count}", user_path(user)
+                td =user.articles.count
                 td =user.comments.count
         = paginate(@users)
-      .col-3 class="my-3"
+      .col-3
         = search_form_for @q, url: users_path, html: { method: :get } do |f|
-          = f.text_field :email_or_name_cont, :placeholder => 'Search users', :class => "form-control w-75 mx-auto"
+          = f.text_field :email_or_name_cont, :placeholder => 'Search users', :class => "form-control w-75 mx-auto my-3"

@@ -6,6 +6,10 @@ class Article < ApplicationRecord
   belongs_to :user
   validates :title, presence: true, uniqueness: true,
                     length: { minimum: 5 }
-  validates :title, presence: true
   validates :user_id, presence: true
+  validates :user, presence: true
+
+  def last_comment
+    comments.last
+  end
 end
