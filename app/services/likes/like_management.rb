@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LikesManagement::AddLike
+class Likes::LikeManagement
   Result = Struct.new(:success?, :context)
 
   def call(likeable_type:, likeable_id:, user:)

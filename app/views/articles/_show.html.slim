@@ -25,9 +25,9 @@ div class='container border bg-light px-3 rounded-lg' id='article_#{article.id}'
       span.comments_count.mr-3 = article.comments.count
       - if current_user.present?
         - if article.likes.find_by(user: current_user)
-          i title="Like/unlike" class="add_like fas fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
+          i title="Like/unlike" class="like_management fas fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
         - else 
-          i title="Like/unlike" class="add_like far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
+          i title="Like/unlike" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
       - else
-        a title="Like/unlike" href="#{new_user_session_path}" class="add_like far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
+        a title="Like/unlike" href="#{new_user_session_path}" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
       span.likes_count = article.likes_count

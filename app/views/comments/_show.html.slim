@@ -17,9 +17,9 @@ div class='container border bg-light px-3 rounded-lg mb-3' id='comment_#{comment
     div class="d-flex like ml-auto my-4"
       - if current_user.present?
         - if comment.likes.find_by(user: current_user)
-          i title="Like/unlike" class="add_like fas fa-heart mr-1 text-danger" data-likeable-type='Comment' data-likeable-id="#{comment.id}"
+          i title="Like/unlike" class="like_management fas fa-heart mr-1 text-danger" data-likeable-type='Comment' data-likeable-id="#{comment.id}"
         - else 
-          i title="Like/unlike" class="add_like far fa-heart mr-1 text-danger" data-likeable-type='Comment' data-likeable-id="#{comment.id}"
+          i title="Like/unlike" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Comment' data-likeable-id="#{comment.id}"
       - else
-        a title="Like/unlike" href="#{new_user_session_path}" class="add_like far fa-heart mr-1 text-danger"
+        a title="Like/unlike" href="#{new_user_session_path}" class="like_management far fa-heart mr-1 text-danger"
       span.likes_count = comment.likes_count

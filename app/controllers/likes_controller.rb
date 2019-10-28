@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  def add_like
-    add_like_command.call(
+  def like_management
+    like_management_command.call(
       likeable_type: params[:likeable_type],
       likeable_id: params[:likeable_id],
       user: current_user
@@ -13,7 +13,7 @@ class LikesController < ApplicationController
 
   private
 
-  def add_like_command
-    @add_like_command ||= LikesManagement::AddLike.new
+  def like_management_command
+    @like_management_command ||= Likes::LikeManagement.new
   end
 end

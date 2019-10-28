@@ -15,6 +15,6 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  get 'likes/add', to: 'likes#add_like'
+  get 'likes/add', to: 'likes#like_management'
   root 'articles#index'
 end

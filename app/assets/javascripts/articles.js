@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $('.add_like').click(function () {
+  $('.like_management').click(function () {
     var $like = $(this);
     var type = $like.data('likeableType');
     var id = $like.data('likeableId');

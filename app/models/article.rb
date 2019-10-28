@@ -8,8 +8,4 @@ class Article < ApplicationRecord
                     length: { minimum: 5 }
   validates :user_id, presence: true
   validates :user, presence: true
-
-  def last_comment
-    comments.last
-  end
 end

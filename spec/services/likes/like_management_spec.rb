@@ -1,0 +1,63 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+describe Likes::LikeManagement do
+  let(:like_management_command) { described_class.new }
+
+  describe '#call' do
+    let(:user) { create(:user) }
+
+    context 'when likeable_type is Article' do
+      let(:article) { create(:article, user: user) }
+      let(:like_management) do
+        like_management_command.call(
+          likeable_type: article.class.name,
+          likeable_id: article.id,
+          user: user
+        )
+      end
+
+      context 'when article not liked by user' do
+        it 'like added' do
+          expect { like_management }.to change(article.reload, :likes_count).from(0).to(1)
+        end
+      end
+
+      context 'when article was already liked by user' do
+        before do
+          like_management
+        end
+
+        it 'removes like' do
+          expect { like_management }.to change(article.reload, :likes_count).from(1).to(0)
+        end
+      end
+    end
+
+    context 'when likeable_type is Comment' do
+      let(:comment) { create(:comment, article: article, user: user) }
+      let(:like_management) do
+        like_management_command.call(
+          likeable_type: comment.class.name,
+          likeable_id: comment.id,
+          user: user
+        )
+      end
+
+      context 'when comment not liked by user' do
+        it 'like added' do
+          expect { like_management }.to change(comment.reload, :likes_count).from(0).to(1)
+        end
+      end
+
+      context 'when comment was already liked by user' do
+        it 'removes like' do
+          like_management
+          comment.reload
+          expect { like_management }.to change(comment.reload, :likes_count).from(1).to(0)
+        end
+      end
+    end
+  end
+end
