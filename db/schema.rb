@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_28_092331) do
+ActiveRecord::Schema.define(version: 2019_10_28_110715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2019_10_28_092331) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "likes_count", default: 0
+    t.index ["created_at"], name: "index_articles_on_created_at"
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -32,6 +34,18 @@ ActiveRecord::Schema.define(version: 2019_10_28_092331) do
     t.datetime "updated_at", null: false
     t.integer "likes_count", default: 0
     t.index ["article_id"], name: "index_comments_on_article_id"
+    t.index ["created_at"], name: "index_comments_on_created_at"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "followings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "followed_user_id"
+    t.index ["followed_user_id"], name: "index_followings_on_followed_user_id"
+    t.index ["user_id", "followed_user_id"], name: "index_followings_on_user_id_and_followed_user_id", unique: true
+    t.index ["user_id"], name: "index_followings_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -41,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_10_28_092331) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,7 +69,7 @@ ActiveRecord::Schema.define(version: 2019_10_28_092331) do
     t.string "name"
     t.integer "age"
     t.boolean "admin", default: false
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_users_on_email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

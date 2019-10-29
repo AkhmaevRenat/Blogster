@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
   $('.like_management').click(function () {
     var $like = $(this);
     var type = $like.data('likeableType');

@@ -3,6 +3,7 @@
 class ArticlesController < ApplicationController
   before_action :initialize_article, only: %i[edit show update destroy]
   before_action :can_change_article?, only: %i[edit update destroy]
+  before_action :authenticate_user!
 
   def new
     @article = Article.new
@@ -26,7 +27,7 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @q = Article.order(:created_at).reverse_order.ransack(params[:q])
+    @q = Article.where(user: current_user.followed_users).or(Article.where(user: current_user)).order(:created_at).reverse_order.ransack(params[:q])
     @articles = @q.result(distinct: true).page(params[:page])
     authorize @articles
   end

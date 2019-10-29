@@ -19,3 +19,7 @@ body
       .col-3
         p = search_form_for @q, url: profile_path, html: { method: :get } do |form|
             = form.text_field :title_or_text_cont, :placeholder => "Search for #{@user.name}'s articles",  :class => "form-control w-75 mx-auto"
+        #followers
+          h2 My subscribers
+          - @user.follower_users.each do |follower|
+            p = link_to "#{follower.name}", user_path(follower)
