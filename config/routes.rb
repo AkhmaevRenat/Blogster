@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  mount Sidekiq::Web => "/sidekiq"
   get 'profile', to: 'users#profile'
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
   devise_scope :user do
     authenticated :user do
       root 'articles#index', as: :authenticated_root

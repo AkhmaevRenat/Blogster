@@ -8,7 +8,7 @@ body
           h3.my-5 Join to disscuss
       .col-6 class="d-flex flex-column align-items-start" id="right_column"
         .container class="login my-5 px-5 text-right"
-          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          = form_for(resource, as: resource_name, url: new_session_path(resource_name)) do |f|
             div class="d-flex justify-content-between"
               = f.email_field :email, autofocus: true, autocomplete: "email",
                 :placeholder => "Email",
