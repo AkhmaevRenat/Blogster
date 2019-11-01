@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super
     @user = User.find_by(email: params[:user][:email])
-    UserMailer.welcome_email(@user).deliver_now
+    Users::WelcomeMailWorker.perform_async(@user.id)
   end
 
   # GET /resource/edit

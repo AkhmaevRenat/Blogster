@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.3'
 gem 'bootstrap', '~> 4.3.1'
 gem 'devise'
+gem 'devise-async'
 gem 'font-awesome-sass', '~> 5.11.2'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
