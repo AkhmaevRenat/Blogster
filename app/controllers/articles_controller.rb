@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  before_action :initialize_article, only: %i[edit show update destroy]
+  before_action :initialize_article, only: %i[edit show update destroy retweet]
   before_action :can_change_article?, only: %i[edit update destroy]
   before_action :authenticate_user!
 
@@ -24,6 +24,7 @@ class ArticlesController < ApplicationController
 
   def show
     @comments = @article.comments.eager_load(:user).order(:created_at)
+    redirect_to article_path(@article.retweeted_id) if @article.retweeted_id.present?
   end
 
   def index
@@ -51,6 +52,17 @@ class ArticlesController < ApplicationController
     @user = current_user
   end
 
+  def retweet
+    @retweet = @article.retweet_of(@article, current_user)
+    if @retweet.present?
+      @retweet.destroy
+    else
+      @retweet = Article.new(title: @article.title, text: @article.text, retweeted_id: @article.id, user: current_user)
+      @retweet.save!
+    end
+    redirect_to articles_path
+  end
+
   private
 
   def article_params
@@ -59,7 +71,6 @@ class ArticlesController < ApplicationController
 
   def initialize_article
     @article = Article.find(params[:id])
-    authorize @article
   end
 
   def can_change_article?

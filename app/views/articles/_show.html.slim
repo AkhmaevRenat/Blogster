@@ -2,8 +2,8 @@ div class='container border bg-light px-3 rounded-lg' id='article_#{article.id}'
   div class="flex row p-3"
     div
       = link_to "#{User.find(article.user_id).name}", user_path(User.find(article.user_id)), :class => "text-dark"
-    div class="text-secondary ml-3"
-      = "#{distance_of_time_in_words(Time.now, article.created_at)} ago"
+    div class="text-secondary ml-2"
+      = "posted #{distance_of_time_in_words(Time.now, article.created_at)} ago"
     div class="ml-auto text-muted"
       ="#{User.find(article.user_id).email}"
   h2
@@ -30,4 +30,6 @@ div class='container border bg-light px-3 rounded-lg' id='article_#{article.id}'
           i title="Like/unlike" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
       - else
         a title="Like/unlike" href="#{new_user_session_path}" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
-      span.likes_count = article.likes_count
+      span.likes_count.mr-3 = article.likes_count
+      a title="Retweet" class="text-success fas fa-retweet mr-1" href="#{retweet_article_path(article)}"
+      span.retweets_count = article.retweets_count

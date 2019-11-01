@@ -10,16 +10,28 @@ body
       .col-6
         h2 class='text-center py-3 px-lg-5 my-lg-0 border bg-light' id="blogster" 
           = link_to 'Blogster', articles_path, :class => "text-dark"
-        h2.text-center Your articles
+        .profile.border.p-3.my-2
+          h3.text-center ="Your profile"
+          .d-flex.flex-row.justify-content-between
+            p#follows_button = link_to "Follows #{@user.followed_users.count}", remote:true
+            p#followers_button = link_to "Followers #{@user.follower_users.count}", remote:true
+            p#articles_button = link_to "Articles #{@user.articles.count}", remote:true
         #articles
           - @articles.each do |article|
             div class="article_#{article.id} py-1"
-              = render partial: '/articles/show', locals: { article: article}
+              - if article.retweeted_id.present?
+                = render partial: '/articles/retweet_show', locals: { retweet: article, article: Article.find(article.retweeted_id)}
+              - else
+                = render partial: '/articles/show', locals: { article: article}
           = paginate(@articles)
+        #follows.text-center
+          h3 Follows
+          - @user.followed_users.each do |followed|
+            p = link_to "#{followed.name}", user_path(followed)
+        #followers.text-center
+          h3 Followers
+          - @user.follower_users.each do |follower|
+            p = link_to "#{follower.name}", user_path(follower)
       .col-3
         p = search_form_for @q, url: profile_path, html: { method: :get } do |form|
             = form.text_field :title_or_text_cont, :placeholder => "Search for #{@user.name}'s articles",  :class => "form-control w-75 mx-auto"
-        #followers
-          h2 My subscribers
-          - @user.follower_users.each do |follower|
-            p = link_to "#{follower.name}", user_path(follower)

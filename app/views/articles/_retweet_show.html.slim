@@ -1,0 +1,43 @@
+div class='container border px-3 rounded-lg' id='article_#{article.id}'
+  div class="flex row p-3"
+    div
+      = link_to "#{User.find(retweet.user_id).name}", user_path(User.find(retweet.user_id)), :class => "text-dark"
+    div class="text-secondary ml-2"
+      = "retweeted #{distance_of_time_in_words(Time.now, retweet.created_at)} ago"
+    div class="ml-auto text-muted"
+      ="#{User.find(retweet.user_id).email}"
+  .original_article.px-3.border.rounded-lg.bg-light.mb-3
+    div class="flex row p-3"
+      div
+        = link_to "#{User.find(article.user_id).name}", user_path(User.find(article.user_id)), :class => "text-dark"
+      div class="text-secondary ml-2"
+        = "posted #{distance_of_time_in_words(Time.now, article.created_at)} ago"
+      div class="ml-auto text-muted"
+        ="#{User.find(article.user_id).email}"
+    h2
+      = link_to "#{article.title}", article_path(article)
+    p class="pt-3"
+      = article.text
+    div class="d-flex w-100"
+      - if current_user.present? && (article.user_id == current_user.id)
+        div class="buttons d-flex my-auto"
+          = link_to 'Edit', edit_article_path(article), :class => "btn btn-outline-primary mr-3"
+          = button_to 'Delete', article_path(article), :class => "btn btn-outline-danger",
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              remote: true
+      div class="like ml-auto my-4"
+        = link_to '', article_path(article, anchor: 'comment'), :title => "Comment", 
+          :class => "far fa-comments text-primary mr-1",
+          :id => "comment"
+        span.comments_count.mr-3 = article.comments.count
+        - if current_user.present?
+          - if article.likes.find_by(user: current_user)
+            i title="Like/unlike" class="like_management fas fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
+          - else 
+            i title="Like/unlike" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
+        - else
+          a title="Like/unlike" href="#{new_user_session_path}" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
+        span.likes_count.mr-3 = article.likes_count
+        a title="Retweet" class="text-success fas fa-retweet mr-1" href="#{retweet_article_path(article)}"
+        span.retweets_count = article.retweets_count

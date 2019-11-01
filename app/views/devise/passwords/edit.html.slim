@@ -1,0 +1,23 @@
+.container-fluid.d-flex id="reg-container"
+  .container class="w-50 rounded-lg bg-white my-5" id="registration"
+    h2.text-center.my-3 Forgot your password?
+    .container class="form w-75"
+      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+        = render "devise/shared/error_messages", resource: resource
+        = f.hidden_field :reset_password_token
+
+        .field
+          = f.label :password, "New password"
+          - if @minimum_password_length
+            em =" (#{@minimum_password_length} characters minimum)"
+          = f.password_field :password, autofocus: true, autocomplete: "new-password", :class => "form-control mb-3"
+
+        .field
+          = f.label :password_confirmation, "Confirm new password"
+          = f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control mb-3"
+
+        .actions
+          = f.submit "Change my password", :class => "btn btn-primary w-100 rounded-pill"
+      .text-right.my-5
+        = link_to "Sign up", new_user_registration_path, :class => "mr-3"
+        = link_to "Sign in", new_user_session_path

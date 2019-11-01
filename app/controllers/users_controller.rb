@@ -9,8 +9,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @q = @user.articles.ransack(params[:q])
-    @articles = @q.result(distinct: true).page(params[:page])
+    if @user == current_user
+      redirect_to profile_path
+    else
+      @q = @user.articles.ransack(params[:q])
+      @articles = @q.result(distinct: true).page(params[:page])
+    end
   end
 
   def profile

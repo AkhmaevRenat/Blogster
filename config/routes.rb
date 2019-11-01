@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => "/sidekiq"
+  default_url_options :host => "localhost:3000"
   get 'profile', to: 'users#profile'
   devise_for :users, controllers: { registrations: "users/registrations" }
   devise_scope :user do
@@ -24,6 +25,9 @@ Rails.application.routes.draw do
   resources :articles do
     collection do
       match 'search' => 'articles#search', via: [:get, :post], as: :search
+    end
+    member do
+      get :retweet
     end
     resources :comments
   end

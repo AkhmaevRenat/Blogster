@@ -1,0 +1,16 @@
+.container-fluid.d-flex id="reg-container"
+  .container class="w-50 rounded-lg bg-white my-5" id="registration"
+    h2.text-center.my-3 Forgot your password?
+    .container class="form w-75"
+      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+        = render "devise/shared/error_messages", resource: resource
+
+        .field
+          = f.label :email
+          = f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control mb-3"
+
+        .actions
+          = f.submit "Send me reset password instructions", :class => "btn btn-primary w-100 rounded-pill"
+      .text-right.my-5
+        = link_to "Sign up", new_user_registration_path, :class => "mr-3"
+        = link_to "Sign in", new_user_session_path
