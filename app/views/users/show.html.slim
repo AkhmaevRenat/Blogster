@@ -24,7 +24,10 @@ body
         #articles
           - @articles.each do |article|
             div class="article_#{article.id} py-1"
-              = render partial: '/articles/show', locals: { article: article}
+              - if article.retweeted_id.present?
+                = render partial: '/articles/retweet_show', locals: { retweet: article, article: Article.find(article.retweeted_id)}
+              - else
+                = render partial: '/articles/show', locals: { article: article}
           = paginate(@articles)
         #follows.text-center
           h3 Follows

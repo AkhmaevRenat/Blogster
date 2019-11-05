@@ -7,9 +7,11 @@ class Article < ApplicationRecord
   validates :title, presence: true, length: { minimum: 5 }
   validates :user, presence: true
 
-  def retweet(article, user)
-    @article = article
-    @user = user
-    Article.where(user: @user).find_by(retweeted_id: @article.id)
+  def retweet_of(article, user)
+    Article.where(user: user).find_by(retweeted_id: article.id)
+  end
+
+  def retweets_count
+    Article.where(retweeted_id: id).count
   end
 end
