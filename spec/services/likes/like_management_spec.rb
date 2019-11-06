@@ -10,7 +10,7 @@ describe Likes::LikeManagement do
     let(:article) { create(:article, user: user) }
 
     context 'when likeable_type is Article' do
-      let!(:like_management) do
+      let(:like_management) do
         like_management_command.call(
           likeable_type: article.class.name,
           likeable_id: article.id,
@@ -27,7 +27,9 @@ describe Likes::LikeManagement do
 
       context 'when article was already liked by user' do
         before do
-          like_management
+          create(:like, likeable_type: article.class.name, likeable_id: article.id, user: user)
+          article.reload.likes_count += 1
+          article.save!
         end
 
         it 'removes like' do
@@ -56,11 +58,14 @@ describe Likes::LikeManagement do
 
       context 'when comment was already liked by user' do
         before do
-          like_management
+          create(:like, likeable_type: comment.class.name, likeable_id: comment.id, user: user)
+          comment.reload.likes_count += 1
+          comment.save!
         end
 
         it 'removes like' do
-          expect { like_management }.to change(comment.reload, :likes_count).from(1).to(0)
+          like_management
+          expect(article.reload.likes_count).to eq(0)
         end
       end
     end

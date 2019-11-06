@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :followed_users, through: :followings
   has_many :followers, foreign_key: :followed_user_id, class_name: 'Following'
   has_many :follower_users, through: :followers, source: :user
+  validates :name, presence: true
 
   def following?(user)
     followed_users.where(id: user.id).exists?
