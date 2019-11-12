@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ErrorsController < ApplicationController
-  skip_before_action :require_login
+  skip_before_action :require_login,raise: false
 
   def forbidden
     respond_to do |format|
