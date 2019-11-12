@@ -1,0 +1,13 @@
+button.btn.btn-sm.btn-outline-success.fas.fa-retweet.mr-1 data-target="#exampleModalLong" data-toggle="modal" type="button" 
+  | Show retweeters
+/! Modal
+#exampleModalLong.modal.fade aria-hidden="true" aria-labelledby="exampleModalLongTitle" role="dialog" tabindex="-1" 
+  .modal-dialog role="document" 
+    .modal-content
+      .modal-header
+        h5#exampleModalLongTitle.modal-title Users that retweeted
+        button.close aria-label="Close" data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+      .modal-body
+        - Article.where(retweeted_id: article.id).each do |retweet|
+          p = link_to "#{User.find(retweet.user_id).name}", user_path(User.find(retweet.user_id))
