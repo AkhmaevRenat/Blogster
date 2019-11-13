@@ -23,7 +23,7 @@ $(document).on('turbolinks:load', function () {
       modal.style.display = "none";
     }
   }
-  $('.like_management').click(function () {
+  $('.like_management').onclick(function () {
     var $like = $(this);
     var type = $like.data('likeableType');
     var id = $like.data('likeableId');
