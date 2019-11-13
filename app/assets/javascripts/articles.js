@@ -1,4 +1,20 @@
 $(document).on('turbolinks:load', function () {
+  $('.like_management').click(function () {
+    var $like = $(this);
+    var type = $like.data('likeableType');
+    var id = $like.data('likeableId');
+    var $likesCount = $like.parent().find('.likes_count');
+    $.ajax({
+      dataType: "json",
+      url: '/likes/add',
+      method: 'GET',
+      data: { likeable_type: type, likeable_id: id },
+      success: function (data) {
+        $likesCount.html(data.likes_count);
+        $like.toggleClass("far fas");
+      }
+    });
+  });
   var modal = document.getElementById("myModal");
 
   // Get the button that opens the modal
@@ -23,20 +39,4 @@ $(document).on('turbolinks:load', function () {
       modal.style.display = "none";
     }
   }
-  $('.like_management').onclick(function () {
-    var $like = $(this);
-    var type = $like.data('likeableType');
-    var id = $like.data('likeableId');
-    var $likesCount = $like.parent().find('.likes_count');
-    $.ajax({
-      dataType: "json",
-      url: '/likes/add',
-      method: 'GET',
-      data: { likeable_type: type, likeable_id: id },
-      success: function (data) {
-        $likesCount.html(data.likes_count);
-        $like.toggleClass("far fas");
-      }
-    });
-  });
 });
