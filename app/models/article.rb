@@ -5,7 +5,6 @@ class Article < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   belongs_to :user
   validates :title, presence: true
-  validates :text, presence: true
   validates :user, presence: true
 
   def retweet_of(article, user)
