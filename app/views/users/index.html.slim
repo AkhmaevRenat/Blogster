@@ -14,20 +14,26 @@ body
         table class="table" id="users"
           thead
             tr 
-              th scope="col" #
               th scope="col" Name
               th scope="col" Email
               th scope="col" Articles
               th scope="col" Comments
+              th scope="col" Subscribtion
           tbody
           - @users.each do |user|
             div class="user_#{user.id} py-1"
               tr
-                th scope="row" =user.id
                 td =link_to "#{user.name}", user_path(user)
                 td =user.email
-                td =user.articles.count
-                td =user.comments.count
+                td.text-center =user.articles.count
+                td.text-center =user.comments.count
+                - if user != current_user
+                  - if current_user.following?(user)
+                    td =link_to 'Unsubscribe', user_unfollow_path(user)
+                  - else
+                    td =link_to 'Subscribe', user_follow_path(user)
+                - else
+                  td =link_to 'Delete', user_path(user), method: :delete
         = paginate(@users)
       .col-3
         = search_form_for @q, url: users_path, html: { method: :get } do |f|

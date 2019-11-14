@@ -28,7 +28,10 @@ div class='container border bg-light px-3 rounded-lg' id='article_#{article.id}'
       - else 
         i title="Like/unlike" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
       span.likes_count.mr-3 = article.likes_count
-      a title="Retweet" class="text-success fas fa-retweet mr-1" href="#{retweet_article_path(article)}"
+      - if article.user_id == current_user.id
+        i title="Retweet" class="text-success fas fa-retweet mr-1"
+      - else
+        a title="Retweet" class="text-success fas fa-retweet mr-1" href="#{retweet_article_path(article)}"
       span.retweets_count = article.retweets_count
       .ml-auto
         = render partial: '/articles/retweets', locals: { article: article} unless article.retweets_count == 0

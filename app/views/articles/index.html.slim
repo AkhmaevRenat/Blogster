@@ -14,6 +14,8 @@ body
           = render 'form'
         h2.text-center Feed
         #articles
+          - if @articles.blank?
+            h5.text-center.m-5 = link_to 'Subscribe to users to fullfill your feed', users_path
           - @articles.each do |article|
             div class="article_#{article.id} py-1"
               - if article.retweeted_id.present?

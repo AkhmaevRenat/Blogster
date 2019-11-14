@@ -12,13 +12,13 @@ body
           = link_to 'Blogster', articles_path, :class => "text-dark"
         .profile.border.p-3.my-2
           h3.text-center ="#{@user.name}'s profile"
-          .d-flex.flex-row.justify-content-between
+          .d-flex.flex-row.justify-content-around
             p#follows_button = link_to "Follows #{@user.followed_users.count}", remote:true
             p#followers_button = link_to "Followers #{@user.follower_users.count}", remote:true
             p#articles_button = link_to "Articles #{@user.articles.count}", remote:true
             .subscribe
               - if current_user.following?(@user)
-                p = link_to 'Unsubscribe', user_follow_path(@user)
+                p = link_to 'Unsubscribe', user_unfollow_path(@user)
               - else
                 p = link_to 'Subscribe', user_follow_path(@user)
         #articles

@@ -42,6 +42,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    Article.where(retweeted_id: @article.id).destroy_all
     @article.destroy
     respond_to do |format|
       format.js

@@ -17,6 +17,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    Following.where(user_id: @user.id).destroy_all
+    Following.where(followed_user_id: @user.id).destroy_all
+    @user.destroy
+    redirect_to users_path
+  end
+
   def profile
     @user = current_user
     @q = @user.articles.ransack(params[:q])

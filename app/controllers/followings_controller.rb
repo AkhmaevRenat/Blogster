@@ -6,18 +6,17 @@ class FollowingsController < ApplicationController
     @following = current_user.followings.new(followed_user: @user)
     if @following.save!
       flash[:notice] = 'Added subscribtion.'
-      redirect_to users_path
     else
       flash[:error] = 'Unable to add subscribtion.'
-      redirect_to users_path
     end
+    redirect_back(fallback_location: users_path)
   end
 
   def destroy
-    @following = current_user.followings.find(@user)
+    @following = current_user.followings.find_by(followed_user_id: @user.id)
     @following.destroy
     flash[:notice] = 'Removed subscribtion.'
-    redirect_to root_url
+    redirect_back(fallback_location: users_path)
   end
 
   private

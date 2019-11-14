@@ -17,10 +17,10 @@ Rails.application.routes.draw do
   end
   resources :users do
     get 'follow', to: 'followings#create'
+    get 'unfollow', to: 'followings#destroy'
     collection do
         match 'search' => 'users#search', via: [:get, :post], as: :search
     end
-    resources :subscribtions
   end
   resources :articles do
     collection do

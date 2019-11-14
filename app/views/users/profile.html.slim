@@ -12,7 +12,7 @@ body
           = link_to 'Blogster', articles_path, :class => "text-dark"
         .profile.border.p-3.my-2
           h3.text-center ="Your profile"
-          .d-flex.flex-row.justify-content-between
+          .d-flex.flex-row.justify-content-around
             p#follows_button = link_to "Follows #{@user.followed_users.count}", remote:true
             p#followers_button = link_to "Followers #{@user.follower_users.count}", remote:true
             p#articles_button = link_to "Articles #{@user.articles.count}", remote:true
