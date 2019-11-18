@@ -1,15 +1,11 @@
 - if user_signed_in?
   = form_with(model: [@article, current_user.articles.build]) do |form|
-    div class="flex row p-3"
-      d.text-dark
-        = current_user.name
-      .ml-auto.text-muted
-        = current_user.email
+    h3.mb-2 Create article
     p
       = form.text_field :title, :placeholder => 'Title', :class => "form-control", :id => "title"
     p
       = form.text_area :text, :placeholder => "What's new?", :class => "form-control", :id => "text"
-    p.text-right
-      = form.submit "Send", :class => "btn btn-outline-primary"
+    p
+      = form.submit "Publish", :class => "btn btn-outline-primary"
 - else
   p.text-info Please sign in to publish articles and comments

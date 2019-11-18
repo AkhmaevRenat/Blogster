@@ -30,4 +30,26 @@ class UsersController < ApplicationController
     @q = @user.articles.ransack(params[:q])
     @articles = @q.result(distinct: true).page(params[:page])
   end
+
+  def edit
+    @user = current_user
+    render 'edit'
+  end
+
+  def update
+    if current_user.update_with_password(user_params)
+      bypass_sign_in(current_user)
+      flash.keep[:success] = 'Updated successfully'
+      redirect_to profile_path
+    else
+      flash.keep[:wrong_password] = 'Wrong current password'
+      redirect_to profile_path
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :current_password)
+  end
 end

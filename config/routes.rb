@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => "/sidekiq"
   default_url_options :host => "localhost:3000"
-  get 'profile', to: 'users#profile'
   devise_for :users, controllers: { registrations: "users/registrations" }
   devise_scope :user do
     authenticated :user do
@@ -31,5 +30,7 @@ Rails.application.routes.draw do
     end
     resources :comments
   end
+  get 'profile', to: 'users#profile'
+  post 'profile/edit', to: 'users#edit'
   get 'likes/add', to: 'likes#like_management'
 end

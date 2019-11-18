@@ -1,0 +1,33 @@
+.container-fluid
+  .row.bg-light.border
+    = render '/articles/header'
+  .row
+    .col-3.py-4.my-lg-0.w-50.mx-auto.text-center
+      = render '/articles/nav'
+    .col-6
+      h2 class='text-center py-3 px-lg-5 my-lg-0 border bg-light' id="blogster" 
+        = link_to 'Blogster', articles_path, :class => "text-dark"
+      .profile.border.p-3.my-2
+        p Edit #{@user.email.to_s.humanize}
+        = form_for(@user, html: { method: :put }) do |f|
+          .field
+            = f.label :password, "Current password"
+            = f.password_field :current_password, autofocus: true, autocomplete: "current-password", :class => "form-control mb-3"
+
+          .field
+            = f.label :password, "New password"
+            - if @minimum_password_length
+              em =" (#{@minimum_password_length} characters minimum)"
+            = f.password_field :password, autofocus: true, autocomplete: "new-password", :class => "form-control mb-3"
+
+          .field
+            = f.label :password_confirmation, "Confirm new password"
+            = f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control mb-3"
+
+          .field
+            = f.label :name, "Change name"
+            = f.text_field :name, autocomplete: "new-password", :class => "form-control mb-3"
+
+          .actions
+            = f.submit "Change my password", :class => "btn btn-primary w-100 rounded-pill"
+    .col-3

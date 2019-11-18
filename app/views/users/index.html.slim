@@ -1,40 +1,31 @@
-head
-  title Users
-
-body
-  .container-fluid
-    .row
-      .col-3
-        p.py-4.my-lg-0.w-50.mx-auto.text-center LOGO
-        = render '/articles/nav'
-      .col-6
-        h2 class='text-center py-3 px-lg-5 my-lg-0 border bg-light' id="blogster" 
-          = link_to 'Blogster', articles_path, :class => "text-dark"
-        h2.text-center Users
-        table class="table" id="users"
-          thead
-            tr 
-              th scope="col" Name
-              th scope="col" Email
-              th scope="col" Articles
-              th scope="col" Comments
-              th scope="col" Subscribtion
-          tbody
-          - @users.each do |user|
-            div class="user_#{user.id} py-1"
-              tr
-                td =link_to "#{user.name}", user_path(user)
-                td =user.email
-                td.text-center =user.articles.count
-                td.text-center =user.comments.count
-                - if user != current_user
-                  - if current_user.following?(user)
-                    td =link_to 'Unsubscribe', user_unfollow_path(user)
-                  - else
-                    td =link_to 'Subscribe', user_follow_path(user)
+.container-fluid
+  .row.bg-light.border
+    = render '/articles/header'
+  .row
+    .col-3.py-4.my-lg-0.w-50.mx-auto.text-center
+      = render '/articles/nav'
+    .col-6
+      h2.text-center.mt-2 Users
+      table class="table" id="users"
+        thead
+          tr 
+            th scope="col" Name
+            th scope="col" Articles
+            th scope="col" Comments
+            th scope="col" Subscribtion
+        tbody
+        - @users.each do |user|
+          div class="user_#{user.id} py-1"
+            tr
+              td =link_to "#{user.name}", user_path(user)
+              td =user.articles.count
+              td =user.comments.count
+              - if user != current_user
+                - if current_user.following?(user)
+                  td =link_to 'Unsubscribe', user_unfollow_path(user)
                 - else
-                  td =link_to 'Delete', user_path(user), method: :delete
-        = paginate(@users)
-      .col-3
-        = search_form_for @q, url: users_path, html: { method: :get } do |f|
-          = f.text_field :email_or_name_cont, :placeholder => 'Search users', :class => "form-control w-75 mx-auto my-3"
+                  td =link_to 'Subscribe', user_follow_path(user)                  
+      = paginate(@users)
+    .col-3
+      = search_form_for @q, url: users_path, html: { method: :get } do |f|
+        = f.text_field :email_or_name_cont, :placeholder => 'Search users', :class => "form-control w-75 mx-auto my-3"
