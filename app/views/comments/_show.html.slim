@@ -22,4 +22,4 @@ div class='container border bg-light px-3 rounded-lg mb-3' id='comment_#{comment
           i title="Like/unlike" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Comment' data-likeable-id="#{comment.id}"
       - else
         a title="Like/unlike" href="#{new_user_session_path}" class="like_management far fa-heart mr-1 text-danger"
-      span.likes_count = comment.likes_count
+      = render partial: 'comments/likers', locals: { object: comment}

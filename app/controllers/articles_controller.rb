@@ -54,13 +54,10 @@ class ArticlesController < ApplicationController
   end
 
   def retweet
-    @retweet = @article.retweet_of(@article, current_user)
-    if @retweet.present?
-      @retweet.destroy
-    else
-      @retweet = Article.new(title: @article.title, text: @article.text, retweeted_id: @article.id, user: current_user)
-      @retweet.save!
-    end
+    retweet_management_command.call(
+      article: @article,
+      user: current_user
+    )
     redirect_to articles_path
   end
 
@@ -76,5 +73,9 @@ class ArticlesController < ApplicationController
 
   def can_change_article?
     head 403 unless @article.user == current_user
+  end
+
+  def retweet_management_command
+    @retweet_management_command ||= Articles::RetweetManagement.new
   end
 end

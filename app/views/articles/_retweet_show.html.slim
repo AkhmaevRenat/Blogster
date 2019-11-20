@@ -31,13 +31,13 @@ div class='container border px-3 rounded-lg' id='article_#{article.id}'
           :class => "far fa-comments text-primary mr-1",
           :id => "comment"
         span.comments_count.mr-3 = article.comments.count
-        - if current_user.present?
-          - if article.likes.find_by(user: current_user)
-            i title="Like/unlike" class="like_management fas fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
-          - else 
-            i title="Like/unlike" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
+        - if article.likes.find_by(user: current_user)
+          i title="Like/unlike" class="like_management fas fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
+        - else 
+          i title="Like/unlike" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
+        = render partial: 'articles/likers', locals: { object: article}
+        - if article.user_id == current_user.id
+          i title="Retweet" class="text-success fas fa-retweet mr-1 ml-3"
         - else
-          a title="Like/unlike" href="#{new_user_session_path}" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Article' data-likeable-id="#{article.id}"
-        span.likes_count.mr-3 = article.likes_count
-        a title="Retweet" class="text-success fas fa-retweet mr-1" href="#{retweet_article_path(article)}"
-        span.retweets_count = article.retweets_count
+          a title="Retweet" class="text-success fas fa-retweet mr-1 ml-3" href="#{retweet_article_path(article)}"
+        = render partial: '/articles/retweeters', locals: { article: article}
