@@ -32,5 +32,6 @@ Rails.application.routes.draw do
   end
   get 'profile', to: 'users#profile'
   post 'profile/edit', to: 'users#edit'
-  get 'likes/add', to: 'likes#like_management'
+  get 'likes/add', to: 'likes#like'
+  get 'likes/remove', to: 'likes#unlike'
 end

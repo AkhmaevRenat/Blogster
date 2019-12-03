@@ -10,8 +10,16 @@ describe Likes::LikeManagement do
     let(:article) { create(:article, user: user) }
 
     context 'when likeable_type is Article' do
-      let(:like_management) do
-        like_management_command.call(
+      let(:like) do
+        like_management_command.like(
+          likeable_type: article.class.name,
+          likeable_id: article.id,
+          user: user
+        )
+      end
+
+      let(:unlike) do
+        like_management_command.unlike(
           likeable_type: article.class.name,
           likeable_id: article.id,
           user: user
@@ -20,7 +28,7 @@ describe Likes::LikeManagement do
 
       context 'when article not liked by user' do
         it 'like added' do
-          like_management
+          like
           expect(article.reload.likes_count).to eq(1)
         end
       end
@@ -33,7 +41,7 @@ describe Likes::LikeManagement do
         end
 
         it 'removes like' do
-          like_management
+          unlike
           expect(article.reload.likes_count).to eq(0)
         end
       end
@@ -41,8 +49,16 @@ describe Likes::LikeManagement do
 
     context 'when likeable_type is Comment' do
       let(:comment) { create(:comment, article: article, user: user) }
-      let(:like_management) do
-        like_management_command.call(
+      let(:like) do
+        like_management_command.like(
+          likeable_type: comment.class.name,
+          likeable_id: comment.id,
+          user: user
+        )
+      end
+
+      let(:unlike) do
+        like_management_command.unlike(
           likeable_type: comment.class.name,
           likeable_id: comment.id,
           user: user
@@ -51,7 +67,7 @@ describe Likes::LikeManagement do
 
       context 'when comment not liked by user' do
         it 'like added' do
-          like_management
+          like
           expect(comment.reload.likes_count).to eq(1)
         end
       end
@@ -64,7 +80,7 @@ describe Likes::LikeManagement do
         end
 
         it 'removes like' do
-          like_management
+          unlike
           expect(article.reload.likes_count).to eq(0)
         end
       end
