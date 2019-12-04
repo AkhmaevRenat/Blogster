@@ -1,1 +1,2 @@
 $('#comments').append('<%= escape_javascript(render partial: 'comments/show', locals: { comment: @comment}) %>');
+$('input[type="text"], textarea').val('');

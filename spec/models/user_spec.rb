@@ -13,5 +13,7 @@ describe User do
     it { is_expected.to have_many(:articles) }
     it { is_expected.to have_many(:comments) }
     it { is_expected.to have_many(:likes) }
+    it { is_expected.to have_many(:followings) }
+    it { is_expected.to have_many(:followed_users) }
   end
 end

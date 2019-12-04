@@ -1,0 +1,10 @@
+.col-3
+  p.py-4.my-lg-0.mx-auto.text-center LOGO
+.col-6
+  h2.text-center.mt-3 = link_to 'Blogster', articles_path, :class => "text-dark"
+.col-3
+  div class="d-flex flex-column"
+    div class="d-flex flex-row mt-3 ml-auto"
+      .text-muted.ml-3
+        = current_user.email
+    = link_to 'Sign out', destroy_user_session_path, method: :delete, :class => "ml-auto"

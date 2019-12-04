@@ -1,26 +1,24 @@
-head
-  title Articles
-
-body
-  .container-fluid
-    .row
-      .col-3
-        p.py-4.my-lg-0.w-50.mx-auto.text-center LOGO
-        = render 'nav'
-      .col-6
-        h2 class='text-center py-3 px-lg-5 my-lg-0 border bg-light' id="blogster" 
-          = link_to 'Blogster', articles_path, :class => "text-dark"
-        div class ='text-center pt-3 px-lg-5 my-lg-0 border bg-light' id="form"
-          = render 'form'
-        h2.text-center Feed
-        #articles
-          - @articles.each do |article|
-            div class="article_#{article.id} py-1"
-              - if article.retweeted_id.present?
-                = render partial: 'retweet_show', locals: { retweet: article, article: Article.find(article.retweeted_id)}
-              - else
-                = render partial: 'show', locals: { article: article}
-          = paginate(@articles)
-      .col-3
+.container-fluid
+  .row.bg-light.border
+    = render 'header'
+  .row
+    .col-3.py-4.my-lg-0.w-50.mx-auto.text-center
+      = render 'nav'
+    .col-6
+      div class ='text-center pt-3 px-lg-5 my-lg-2 border bg-light rounded-lg' id="form"
+        = render 'form'
+      h2.text-center Feed
+      #articles
+        - if @articles.blank?
+          h5.text-center.m-5 = link_to 'Subscribe to users to fullfill your feed', users_path
+        - @articles.each do |article|
+          div class="article_#{article.id} py-1"
+            - if article.retweeted_id.present?
+              = render partial: 'retweet_show', locals: { retweet: article, article: Article.find(article.retweeted_id)}
+            - else
+              = render partial: 'show', locals: { article: article}
+        = paginate(@articles)
+    .col-3
+      #search_bar
         p = search_form_for @q, url: articles_path, html: { method: :get } do |form|
             = form.text_field :title_or_text_cont, :placeholder => 'Search in blogster',  :class => "form-control w-75 mx-auto"

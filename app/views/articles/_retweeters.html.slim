@@ -1,0 +1,13 @@
+span.retweets_count data-target="#Article#{article.id}RetweetModalLong" data-toggle="modal" 
+   = article.retweets_count
+/! Modal
+div id="Article#{article.id}RetweetModalLong" class="modal fade" aria-hidden="true" aria-labelledby="Article#{article.id}RetweetModalLongTitle" role="dialog" tabindex="-1" 
+  .modal-dialog role="document" 
+    .modal-content.w-75
+      .modal-header
+        h3 Retweeted users
+        button.close aria-label="Close" data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+      .modal-body.text-center
+        - User.retweeters(article.id).each do |retweeter|
+          p = link_to "#{retweeter.name}", user_path(retweeter)

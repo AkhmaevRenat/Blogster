@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => "/sidekiq"
   default_url_options :host => "localhost:3000"
-  get 'profile', to: 'users#profile'
   devise_for :users, controllers: { registrations: "users/registrations" }
   devise_scope :user do
     authenticated :user do
@@ -17,10 +16,10 @@ Rails.application.routes.draw do
   end
   resources :users do
     get 'follow', to: 'followings#create'
+    get 'unfollow', to: 'followings#destroy'
     collection do
         match 'search' => 'users#search', via: [:get, :post], as: :search
     end
-    resources :subscribtions
   end
   resources :articles do
     collection do
@@ -28,8 +27,12 @@ Rails.application.routes.draw do
     end
     member do
       get :retweet
+      get :destroy_retweet
     end
     resources :comments
   end
-  get 'likes/add', to: 'likes#like_management'
+  get 'profile', to: 'users#profile'
+  post 'profile/edit', to: 'users#edit'
+  get 'likes/add', to: 'likes#like'
+  get 'likes/remove', to: 'likes#unlike'
 end

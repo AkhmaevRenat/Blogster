@@ -5,6 +5,5 @@ FactoryBot.define do
     name { 'Renatik' }
     email { 'renatik123@mail.ru' }
     password { 'qweqweqwe' }
-    age { 18 }
   end
 end

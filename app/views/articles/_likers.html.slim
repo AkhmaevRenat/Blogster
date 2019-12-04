@@ -1,0 +1,13 @@
+span.likes_count data-target="##{object.class.name}#{object.id}LikeModalLong" data-toggle="modal" 
+    = object.likes_count
+/! Modal
+div id="#{object.class.name}#{object.id}LikeModalLong" class="modal fade" aria-hidden="true" aria-labelledby="ModalLongTitle" role="dialog" tabindex="-1" 
+  .modal-dialog role="document" 
+    .modal-content.w-50
+      .modal-header
+        h3.w-100 Liked users
+        button.close aria-label="Close" data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+      .modal-body.text-center
+          - User.liked_users(object.class.name, object.id).each do |liked_user|
+            p = link_to "#{liked_user.name}", user_path(liked_user)
