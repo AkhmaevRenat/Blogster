@@ -49,3 +49,8 @@
   cursor: pointer;
   color: rgb(16, 114, 16);
 }
+
+.nav, #search_bar {
+  position: sticky;
+  top: 10px;
+}

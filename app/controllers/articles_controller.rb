@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  before_action :initialize_article, only: %i[edit show update destroy retweet]
+  before_action :initialize_article, only: %i[edit show update destroy retweet destroy_retweet]
   before_action :can_change_article?, only: %i[edit update destroy]
   before_action :authenticate_user!
 
@@ -54,11 +54,20 @@ class ArticlesController < ApplicationController
   end
 
   def retweet
-    retweet_management_command.call(
+    @retweet = create_retweet_command.call(
       article: @article,
       user: current_user
-    )
-    redirect_to articles_path
+    ).retweet
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy_retweet
+    destroy_retweet_command.call(@article)
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
@@ -75,7 +84,11 @@ class ArticlesController < ApplicationController
     head 403 unless @article.user == current_user
   end
 
-  def retweet_management_command
-    @retweet_management_command ||= Articles::RetweetManagement.new
+  def create_retweet_command
+    @create_retweet_command ||= RetweetManagement::Create.new
+  end
+
+  def destroy_retweet_command
+    @destroy_retweet_command ||= RetweetManagement::Destroy.new
   end
 end

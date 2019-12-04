@@ -2,18 +2,16 @@
 
 class LikesController < ApplicationController
   def like
-    like_management_command.like(
-      likeable_type: likeable_object.class.name,
-      likeable_id: likeable_object.id,
+    like_create_command.call(
+      likeable_object: likeable_object,
       user: current_user
     )
     render json: { likes_count: likeable_object.reload.likes_count }
   end
 
   def unlike
-    like_management_command.unlike(
-      likeable_type: likeable_object.class.name,
-      likeable_id: likeable_object.id,
+    like_destroy_command.call(
+      likeable_object: likeable_object,
       user: current_user
     )
     render json: { likes_count: likeable_object.reload.likes_count }
@@ -25,7 +23,11 @@ class LikesController < ApplicationController
     @likeable_object ||= params[:likeable_type].constantize.find(params[:likeable_id])
   end
 
-  def like_management_command
-    @like_management_command ||= Likes::LikeManagement.new
+  def like_create_command
+    @like_create_command ||= LikeManagement::Create.new
+  end
+
+  def like_destroy_command
+    @like_destroy_command ||= LikeManagement::Destroy.new
   end
 end

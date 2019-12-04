@@ -19,5 +19,6 @@
               = render partial: 'show', locals: { article: article}
         = paginate(@articles)
     .col-3
-      p = search_form_for @q, url: articles_path, html: { method: :get } do |form|
-          = form.text_field :title_or_text_cont, :placeholder => 'Search in blogster',  :class => "form-control w-75 mx-auto"
+      #search_bar
+        p = search_form_for @q, url: articles_path, html: { method: :get } do |form|
+            = form.text_field :title_or_text_cont, :placeholder => 'Search in blogster',  :class => "form-control w-75 mx-auto"

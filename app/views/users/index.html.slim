@@ -27,5 +27,6 @@
                   td =link_to 'Subscribe', user_follow_path(user)                  
       = paginate(@users)
     .col-3
-      = search_form_for @q, url: users_path, html: { method: :get } do |f|
-        = f.text_field :email_or_name_cont, :placeholder => 'Search users', :class => "form-control w-75 mx-auto my-3"
+      #search_bar
+        = search_form_for @q, url: users_path, html: { method: :get } do |f|
+          = f.text_field :email_or_name_cont, :placeholder => 'Search users', :class => "form-control w-75 mx-auto my-3"

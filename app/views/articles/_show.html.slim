@@ -37,5 +37,7 @@ div class='container border bg-light px-3 rounded-lg' id='article_#{article.id}'
       - if article.user_id == current_user.id
         i title="Retweet" class="text-success fas fa-retweet mr-1 ml-3"
       - else
-        a title="Retweet" class="text-success fas fa-retweet mr-1 ml-3" href="#{retweet_article_path(article)}"
+        = link_to '', retweet_article_path(article),
+          :class => "text-success fas fa-retweet mr-1 ml-3",
+          remote: true
       = render partial: '/articles/retweeters', locals: { article: article}

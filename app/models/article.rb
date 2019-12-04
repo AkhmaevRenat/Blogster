@@ -8,8 +8,8 @@ class Article < ApplicationRecord
   validates :text, presence: true
   validates :user, presence: true
 
-  def retweet_of(article, user)
-    Article.where(user: user).find_by(retweeted_id: article.id)
+  def retweet_of(user, retweeted_id)
+    Article.find_by(user: user, id: retweeted_id)
   end
 
   def retweets_count

@@ -1,0 +1,6 @@
+$('#articles').prepend('<%= escape_javascript(render partial: 'retweet_show', locals: { retweet: @retweet, article: @article}) %>')
+window.scrollTo({
+    top: $('#articles').offset().top,
+    left: 0,
+    behavior: 'smooth'
+  })

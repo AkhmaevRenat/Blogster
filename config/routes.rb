@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     end
     member do
       get :retweet
+      get :destroy_retweet
     end
     resources :comments
   end

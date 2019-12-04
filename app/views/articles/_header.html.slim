@@ -5,8 +5,6 @@
 .col-3
   div class="d-flex flex-column"
     div class="d-flex flex-row mt-3 ml-auto"
-      .text-dark
-        = current_user.name
       .text-muted.ml-3
         = current_user.email
     = link_to 'Sign out', destroy_user_session_path, method: :delete, :class => "ml-auto"

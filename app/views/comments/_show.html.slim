@@ -15,11 +15,14 @@ div class='container border bg-light px-3 rounded-lg mb-3' id='comment_#{comment
           data: { confirm: 'Are you sure?' },
           remote: true
     div class="d-flex like ml-auto my-4"
-      - if current_user.present?
-        - if comment.likes.find_by(user: current_user)
-          i title="Like/unlike" class="like_management fas fa-heart mr-1 text-danger" data-likeable-type='Comment' data-likeable-id="#{comment.id}"
-        - else 
-          i title="Like/unlike" class="like_management far fa-heart mr-1 text-danger" data-likeable-type='Comment' data-likeable-id="#{comment.id}"
+      - if comment.likes.find_by(user: current_user)
+        = link_to '', "#",
+          :title => "Unlike",
+          :class => "remove_like fas fa-heart mr-1 text-danger",
+          data: {likeable_type: 'Comment' ,likeable_id: comment.id}
       - else
-        a title="Like/unlike" href="#{new_user_session_path}" class="like_management far fa-heart mr-1 text-danger"
+        = link_to '', "#",
+          :title => "Like",
+          :class => "add_like far fa-heart mr-1 text-danger",
+          data: {likeable_type: 'Comment' ,likeable_id: comment.id}
       = render partial: 'comments/likers', locals: { object: comment}
